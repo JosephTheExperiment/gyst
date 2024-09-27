@@ -1,9 +1,7 @@
-use clap::Parser;
-use args::Cli;
-mod leg_off;
 mod cmake;
-mod args;
+mod leg_off;
+mod cli;
 
-fn main() { 
-    let _cli = Cli::parse();
+fn main() {
+
 }

@@ -1,11 +1,11 @@
-use std::path::PathBuf;
 use clap::{Args, Parser, Subcommand, ValueEnum};
+use std::path::PathBuf;
 
 #[derive(Parser)]
-#[command(author, version, about, long_about = None)]
-pub struct Cli {
+#[command(author, version, about)]
+struct Cli {
     #[command(subcommand)]
-    main: LegOffSubcommands,
+    command: LegOffSubcommands,
 }
 
 #[derive(Subcommand)]
@@ -29,34 +29,34 @@ enum LegOffSubcommands {
 }
 
 #[derive(Args)]
-struct NewArgs{
+struct NewArgs {
     /// Project's language
     #[arg(long, value_enum)]
     lang: Lang,
-    
+
     /// Project's type
     #[arg(long, value_enum)]
     r#type: Type,
-    
+
     /// Project's name
     #[arg(short, long)]
-    name: String, 
+    name: String,
 
     /// Build system generator for cmake
-    #[arg(short = 'G', required = false)]
-    g: String,
-    
+    #[arg(short = 'G')]
+    g: Option<String>,
+
     /// Directory for the project
     #[arg(long, default_value = ".")]
     to: PathBuf,
 
     /// Unit testing framework
-    #[arg(long, required = false)]
+    #[arg(long)]
     test: bool,
-    
-    /// Add conanfile.py to be able to install libraries 
-    #[arg(long, required = false)]
-    conan: bool
+
+    /// Add conanfile.py to be able to install libraries
+    #[arg(long)]
+    conan: bool,
 }
 
 #[derive(Clone, ValueEnum)]
