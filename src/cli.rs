@@ -1,15 +1,25 @@
 use clap::{Args, Parser, Subcommand, ValueEnum};
 use std::path::PathBuf;
 
+macro_rules! pub_struct {
+    ($(#[$struct_attr:meta])* struct $name:ident {$($(#[$field_attr:meta])* $field:ident: $t:ty,)*}) => {
+        $(#[$struct_attr])*
+        pub struct $name {
+            $($(#[$field_attr])*
+            pub $field: $t,)*
+        }
+    }
+}
+
 #[derive(Parser)]
 #[command(author, version, about)]
-struct Cli {
+pub struct Cli {
     #[command(subcommand)]
-    command: LegOffSubcommands,
+    pub command: LegOffSubcommands,
 }
 
 #[derive(Subcommand)]
-enum LegOffSubcommands {
+pub enum LegOffSubcommands {
     /// Creates a new project
     New(NewArgs),
     /// Install libraries from conan
@@ -28,45 +38,47 @@ enum LegOffSubcommands {
     Build {},
 }
 
-#[derive(Args)]
-struct NewArgs {
-    /// Project's language
-    #[arg(long, value_enum)]
-    lang: Lang,
+pub_struct!(
+    #[derive(Args)]
+    struct NewArgs {
+        /// Project's language
+        #[arg(long, value_enum)]
+        lang: Lang,
 
-    /// Project's type
-    #[arg(long, value_enum)]
-    r#type: Type,
+        /// Project's type
+        #[arg(long, value_enum)]
+        r#type: Type,
 
-    /// Project's name
-    #[arg(short, long)]
-    name: String,
+        /// Project's name
+        #[arg(short, long)]
+        name: String,
 
-    /// Build system generator for cmake
-    #[arg(short = 'G')]
-    g: Option<String>,
+        /// Build system generator for cmake
+        #[arg(short = 'G')]
+        g: Option<String>,
 
-    /// Directory for the project
-    #[arg(long, default_value = ".")]
-    to: PathBuf,
+        /// Directory for the project
+        #[arg(long, default_value = ".")]
+        to: PathBuf,
 
-    /// Unit testing framework
-    #[arg(long)]
-    test: bool,
+        /// Unit testing framework
+        #[arg(long)]
+        test: bool,
 
-    /// Add conanfile.py to be able to install libraries
-    #[arg(long)]
-    conan: bool,
-}
+        /// Add conanfile.py to be able to install libraries
+        #[arg(long)]
+        conan: bool,
+    }
+);
 
 #[derive(Clone, ValueEnum)]
-enum Lang {
+pub enum Lang {
     C,
     Cpp,
 }
 
 #[derive(Clone, ValueEnum)]
-enum Type {
+pub enum Type {
     App,
     SharedLib,
     StaticLib,
