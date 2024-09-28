@@ -23,11 +23,11 @@ pub enum LegOffSubcommands {
     /// Creates a new project
     New(NewArgs),
     /// Install libraries from conan
-    Install {},
+    Install(InstallArgs),
     /// Add {.c, .cpp, .h, .hpp, section} to or from sections
-    Add {},
+    Add(AddArgs),
     /// Delete {.c, .cpp, .h, .hpp, section} to or from sections
-    Delete {},
+    Delete(DeleteArgs),
     /// Set a variable to some value
     Set {},
     /// Add some optional features to the porject
@@ -38,18 +38,33 @@ pub enum LegOffSubcommands {
     Build {},
 }
 
+#[derive(Clone, ValueEnum)]
+pub enum Lang {
+    C,
+    Cpp,
+}
+
+#[derive(Clone, ValueEnum)]
+pub enum Type {
+    App,
+    SharedLib,
+    StaticLib,
+    IncludeLib,
+    ModuleLib,
+}
+
 pub_struct!(
     #[derive(Args)]
     struct NewArgs {
-        /// Project's language
+        /// Project language
         #[arg(long, value_enum)]
         lang: Lang,
 
-        /// Project's type
+        /// Project type
         #[arg(long, value_enum)]
         r#type: Type,
 
-        /// Project's name
+        /// Project name
         #[arg(short, long)]
         name: String,
 
@@ -71,17 +86,49 @@ pub_struct!(
     }
 );
 
-#[derive(Clone, ValueEnum)]
-pub enum Lang {
-    C,
-    Cpp,
-}
+pub_struct!(
+    #[derive(Args)]
+    struct InstallArgs {
+        /// Library name
+        #[arg(short, long)]
+        name: String,
 
-#[derive(Clone, ValueEnum)]
-pub enum Type {
-    App,
-    SharedLib,
-    StaticLib,
-    IncludeLib,
-    ModuleLib,
-}
+        /// Library version
+        #[arg(short, long)]
+        version: String,
+    }
+);
+
+pub_struct!(
+    #[derive(Args)]
+    struct AddArgs {
+        /// File or section name
+        #[arg(short, long)]
+        name: String,
+
+        /// Section(path) for the file or section to be created to
+        #[arg(long, default_value = ".")]
+        to: PathBuf,
+
+        /// Create a new file or section or replace the old one without asking
+        #[arg(short, long)]
+        force: bool,
+    }
+);
+
+pub_struct!(
+    #[derive(Args)]
+    struct DeleteArgs {
+        /// File or section name
+        #[arg(short, long)]
+        name: String,
+
+        /// Section(path) for the file or section to be deleted from
+        #[arg(long, default_value = ".")]
+        from: PathBuf,
+
+        /// Delete a file or section without asking
+        #[arg(short, long)]
+        force: bool,
+    }
+);

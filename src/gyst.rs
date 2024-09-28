@@ -1,6 +1,7 @@
 use std::fs::File;
 use std::process::{Command, Output};
 
+#[allow(dead_code)]
 fn git_init(path: &str) {
     let path: String = path.to_string() + "\\";
     let _ = run_command(vec!["git", "init", path.as_str()]);
