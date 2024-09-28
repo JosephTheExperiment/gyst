@@ -1,5 +1,5 @@
 mod cmake;
-mod leg_off;
+mod gyst;
 mod cli;
 use clap::Parser;
 use cli::{Cli, LegOffSubcommands};
