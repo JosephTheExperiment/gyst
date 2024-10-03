@@ -1,3 +1,4 @@
+use crate::descriptions::descriptions;
 use clap::{Args, Parser, Subcommand, ValueEnum};
 use std::path::PathBuf;
 
@@ -20,21 +21,28 @@ pub struct Cli {
 
 #[derive(Subcommand)]
 pub enum LegOffSubcommands {
-    /// Creates a new project or to an existing project
+    #[command(about = "Install libraries via conan")]
     New(NewArgs),
-    /// Install libraries from conan
+
+    #[command(about = "Install libraries via conan", long_about = descriptions("install"))]
     Install(InstallArgs),
-    /// Add {.c, .cpp, .h, .hpp, module} to or from other modules
+
+    #[command(about = "Add {.c, .cpp, .h, .hpp, module} to or from other modules")]
     Add(AddArgs),
-    /// Delete {.c, .cpp, .h, .hpp, module} to or from other modules
+
+    #[command(about = "Delete {.c, .cpp, .h, .hpp, module} to or from other modules")]
     Delete(DeleteArgs),
-    /// Set a variable to some value
+
+    #[command(about = "Set a variable to some value")]
     Set {},
-    /// Add some optional features to the porject
+
+    #[command(about = "Add some optional features to the porject")]
     Init {},
-    /// Build and run all modules and the main.{c, cpp} file
+
+    #[command(about = "Build and run all modules and the main.{c, cpp} file")]
     Run {},
-    /// Build all modules and the main.{c, cpp} if it exist
+
+    #[command(about = "Build all modules and the main.{c, cpp} if it exist")]
     Build {},
 }
 
@@ -58,32 +66,25 @@ pub enum Type {
 pub_struct!(
     #[derive(Args)]
     struct NewArgs {
-        /// Project language
-        #[arg(long, value_enum)]
+        #[arg(long, value_enum, help = "Project language")]
         lang: Lang,
 
-        /// Project type
-        #[arg(long, value_enum)]
+        #[arg(long, value_enum, help = "Project type")]
         r#type: Type,
 
-        /// Project name
-        #[arg(short, long)]
+        #[arg(short, long, help = "Project name")]
         name: String,
 
-        /// Build system generator for cmake
-        #[arg(short = 'G')]
+        #[arg(short = 'G', help = "Build system generator for cmake")]
         g: Option<String>,
 
-        /// Directory for the project
-        #[arg(long, default_value = ".")]
+        #[arg(long, default_value = ".", help = "Directory for the project")]
         to: PathBuf,
 
-        /// Unit testing framework
-        #[arg(long)]
+        #[arg(long, help = "Unit testing framework")]
         test: bool,
 
-        /// Add conanfile.py to be able to install libraries
-        #[arg(long)]
+        #[arg(long, help = "Add conanfile.py to be able to install libraries")]
         conan: bool,
     }
 );
@@ -91,12 +92,10 @@ pub_struct!(
 pub_struct!(
     #[derive(Args)]
     struct InstallArgs {
-        /// Library name
-        #[arg(short, long)]
+        #[arg(short, long, help = "Library name")]
         name: String,
 
-        /// Library version
-        #[arg(short, long)]
+        #[arg(short, long, help = "Library version")]
         version: String,
     }
 );
@@ -104,16 +103,13 @@ pub_struct!(
 pub_struct!(
     #[derive(Args)]
     struct AddArgs {
-        /// File or module name
-        #[arg(short, long)]
+        #[arg(short, long, help = "File or module name")]
         name: String,
 
-        /// module(path) for the file or module to be created to
-        #[arg(long, default_value = ".")]
+        #[arg(long, default_value = ".", help = "Module(path) for the file or module to be created to")]
         to: PathBuf,
 
-        /// Create a new file or module or replace the old one without asking
-        #[arg(short, long)]
+        #[arg(short, long, help = "Create a new file or module or replace the old one without asking")]
         force: bool,
     }
 );
@@ -121,16 +117,13 @@ pub_struct!(
 pub_struct!(
     #[derive(Args)]
     struct DeleteArgs {
-        /// File or module name
-        #[arg(short, long)]
+        #[arg(short, long, help = "File or module name")]
         name: String,
 
-        /// module(path) for the file or module to be deleted from
-        #[arg(long, default_value = ".")]
+        #[arg(long, default_value = ".", help = "Module(path) for the file or module to be deleted from")]
         from: PathBuf,
 
-        /// Delete a file or module without asking
-        #[arg(short, long)]
+        #[arg(short, long, help = "Delete a file or module without asking")]
         force: bool,
     }
 );
