@@ -20,31 +20,33 @@ pub struct Cli {
 
 #[derive(Subcommand)]
 pub enum LegOffSubcommands {
-    /// Creates a new project
+    /// Creates a new project or to an existing project
     New(NewArgs),
     /// Install libraries from conan
     Install(InstallArgs),
-    /// Add {.c, .cpp, .h, .hpp, section} to or from sections
+    /// Add {.c, .cpp, .h, .hpp, module} to or from other modules
     Add(AddArgs),
-    /// Delete {.c, .cpp, .h, .hpp, section} to or from sections
+    /// Delete {.c, .cpp, .h, .hpp, module} to or from other modules
     Delete(DeleteArgs),
     /// Set a variable to some value
     Set {},
     /// Add some optional features to the porject
     Init {},
-    /// Build and run all sections and the main.{c, cpp} file
+    /// Build and run all modules and the main.{c, cpp} file
     Run {},
-    /// Build all sections and the main.{c, cpp} if it exist
+    /// Build all modules and the main.{c, cpp} if it exist
     Build {},
 }
 
 #[derive(Clone, ValueEnum)]
+#[clap(rename_all = "snake_case")]
 pub enum Lang {
     C,
     Cpp,
 }
 
 #[derive(Clone, ValueEnum)]
+#[clap(rename_all = "snake_case")]
 pub enum Type {
     App,
     SharedLib,
@@ -102,15 +104,15 @@ pub_struct!(
 pub_struct!(
     #[derive(Args)]
     struct AddArgs {
-        /// File or section name
+        /// File or module name
         #[arg(short, long)]
         name: String,
 
-        /// Section(path) for the file or section to be created to
+        /// module(path) for the file or module to be created to
         #[arg(long, default_value = ".")]
         to: PathBuf,
 
-        /// Create a new file or section or replace the old one without asking
+        /// Create a new file or module or replace the old one without asking
         #[arg(short, long)]
         force: bool,
     }
@@ -119,15 +121,15 @@ pub_struct!(
 pub_struct!(
     #[derive(Args)]
     struct DeleteArgs {
-        /// File or section name
+        /// File or module name
         #[arg(short, long)]
         name: String,
 
-        /// Section(path) for the file or section to be deleted from
+        /// module(path) for the file or module to be deleted from
         #[arg(long, default_value = ".")]
         from: PathBuf,
 
-        /// Delete a file or section without asking
+        /// Delete a file or module without asking
         #[arg(short, long)]
         force: bool,
     }
