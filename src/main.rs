@@ -1,6 +1,5 @@
 mod cli;
 mod cmake;
-mod descriptions;
 mod gyst;
 use clap::Parser;
 use cli::{Cli, LegOffSubcommands};

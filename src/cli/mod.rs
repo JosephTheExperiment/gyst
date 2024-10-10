@@ -1,4 +1,5 @@
-use crate::descriptions::descriptions;
+mod descriptions;
+use descriptions::descriptions;
 use clap::{Args, Parser, Subcommand, ValueEnum};
 use std::path::PathBuf;
 
