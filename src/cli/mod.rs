@@ -22,28 +22,28 @@ pub struct Cli {
 
 #[derive(Subcommand)]
 pub enum LegOffSubcommands {
-    #[command(about = "Install libraries via conan")]
+    #[command(about = "Create new project or create to an existing project")]
     New(NewArgs),
 
     #[command(about = "Install libraries via conan", long_about = descriptions("install"))]
     Install(InstallArgs),
 
-    #[command(about = "Add {.c, .cpp, .h, .hpp, module} to or from other modules")]
+    #[command(about = "Add {source, header, section, module} to a {section, module}")]
     Add(AddArgs),
 
-    #[command(about = "Delete {.c, .cpp, .h, .hpp, module} to or from other modules")]
+    #[command(about = "Delete {source, header, section, module} from a {section, module}")]
     Delete(DeleteArgs),
 
     #[command(about = "Set a variable to some value")]
     Set {},
 
-    #[command(about = "Add some optional features to the porject")]
+    #[command(about = "Add some optional features to your porject")]
     Init {},
 
-    #[command(about = "Build and run all modules and the main.{c, cpp} file")]
+    #[command(about = "Build all {modules, files} and the main.{c, cpp} file and run it")]
     Run {},
 
-    #[command(about = "Build all modules and the main.{c, cpp} if it exist")]
+    #[command(about = "Build all {modules, files} and the main.{c, cpp} file if it dose exist")]
     Build {},
 }
 
@@ -61,7 +61,6 @@ pub enum Type {
     SharedLib,
     StaticLib,
     IncludeLib,
-    ModuleLib,
 }
 
 pub_struct!(
@@ -82,10 +81,10 @@ pub_struct!(
         #[arg(long, default_value = ".", help = "Directory for the project")]
         to: PathBuf,
 
-        #[arg(long, help = "Unit testing framework")]
+        #[arg(long, help = "Specify a unit testing framework add tests to your project and enable testing")]
         test: bool,
 
-        #[arg(long, help = "Add conanfile.py to be able to install libraries")]
+        #[arg(long, help = "Add conanfile.py to be able to install libraries via conan")]
         conan: bool,
     }
 );
