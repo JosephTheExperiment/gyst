@@ -1,38 +1,28 @@
-use crate::pub_struct;
 use std::collections::HashMap;
 
-macro_rules! BulidSubcommandAbout {
-    ($subcommand:ident about: $about:expr, long_about: $long_about:expr, flags: {$($flag:ident: $flag_about:expr),+}) => {
-        fn $subcommand() -> SubcommandAbout {
-            let mut flags: HashMap<String, String> = HashMap::new();
-            $(flags.insert("$flag".to_string(),$flag_about.to_string());)+
-            return SubcommandAbout {
-                about: $about.to_string(),
-                long_about: $long_about.to_string(),
-                flags: flags
-            };
+macro_rules! BuildAbout {
+    ($subcommand:ident about: $about:expr, long_about: $long_about:expr, flags {$($flag:ident: $flag_about:expr),+}) => {
+        pub fn $subcommand(about_type: AboutType) -> String {
+            let mut flags: HashMap<String, String> = HashMap::from([$(("$flag".to_string(), $flag_about.to_string())),+]);
+            match about_type {
+                AboutType::About => $about.to_string(),
+                AboutType::LongAbout => $long_about.to_string(),
+                AboutType::Flag { flag } => flags.remove(&flag).expect("The flag dose not exist"),
+            }
         }
     };
 }
 
-macro_rules! GetSubcommandAbout {
-    ($subcommand:ident => about: $about:ident) => {
-
-    };
+pub enum AboutType {
+    About,
+    LongAbout,
+    Flag { flag: String },
 }
 
-pub_struct!(
-    struct SubcommandAbout {
-        about: String,
-        long_about: String,
-        flags: HashMap<String, String>,
-    }
-);
-
-BulidSubcommandAbout!(new_about
+BuildAbout!(new_about
 about: "Create new project or create to an existing project",
 long_about: "",
-flags: {
+flags {
     lang: "Project language",
     r#type: "Project type",
     name: "Project name",

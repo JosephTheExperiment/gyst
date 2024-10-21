@@ -1,4 +1,5 @@
 mod about;
+use about::{new_about, AboutType};
 use clap::{Args, Parser, Subcommand, ValueEnum};
 use std::path::PathBuf;
 
@@ -22,7 +23,7 @@ pub struct Cli {
 
 #[derive(Subcommand)]
 pub enum LegOffSubcommands {
-    #[command(about = "Create new project or create to an existing project")]
+    #[command(about = about::new_about(AboutType::About))]
     New(NewArgs),
 
     #[command(about = "Install libraries via conan")]
@@ -66,7 +67,7 @@ pub enum ProjectType {
 pub_struct!(
     #[derive(Args)]
     struct NewArgs {
-        #[arg(long, value_enum, help = "Project language")]
+        #[arg(long, value_enum, help = new_about(AboutType::Flag { flag: "lang".to_string() }))]
         lang: Lang,
 
         #[arg(long, value_enum, help = "Project type")]
