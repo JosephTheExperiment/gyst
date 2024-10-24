@@ -3,7 +3,6 @@ use about::{new_about, AboutType};
 use clap::{Args, Parser, Subcommand, ValueEnum};
 use std::path::PathBuf;
 
-#[macro_export]
 macro_rules! pub_struct {
     ($(#[$struct_attr:meta])* struct $name:ident {$($(#[$field_attr:meta])* $field:ident: $t:ty,)*}) => {
         $(#[$struct_attr])*
@@ -18,12 +17,12 @@ macro_rules! pub_struct {
 #[command(author, version, about)]
 pub struct Cli {
     #[command(subcommand)]
-    pub command: LegOffSubcommands,
+    pub command: GystSubcommand,
 }
 
 #[derive(Subcommand)]
-pub enum LegOffSubcommands {
-    #[command(about = about::new_about(AboutType::About))]
+pub enum GystSubcommand {
+    #[command()]
     New(NewArgs),
 
     #[command(about = "Install libraries via conan")]
