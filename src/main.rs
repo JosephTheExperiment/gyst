@@ -7,15 +7,9 @@ use cli::{Cli, GystSubcommand};
 fn main() {
     let cli = Cli::parse();
 
-    // You can check for the existence of subcommands, and if found use their
+    //You can check for the existence of subcommands, and if found use their
     //matches just as you would the top level cmd
     match &cli.command {
-        GystSubcommand::New(args) => {
-            println!("New name {}", args.name);
-        }
-        GystSubcommand::Install(args) => {
-            println!("Install name {}", args.name);
-        }
         _ => {}
     }
 }
