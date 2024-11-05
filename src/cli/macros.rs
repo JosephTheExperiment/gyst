@@ -23,19 +23,26 @@ macro_rules! cli_interface {
                 about => $about:expr,
                 long_about => $long_about:expr,
                 flags {
-                    $($flag:ident $(#[$flag_attr:meta])*: $flag_type:ty => $flag_des:expr),*
+                    $($flag:ident $(#[$flag_attr:meta])*: $flag_type:ty => $flag_des:expr $(=> $flag_long_des:expr)?),*
                 }
                 $(,enums {
-                    $($enum_name:ident $(#[$enum_attr:meta])* { $($enum:ident),* }),*
+                    $($enum_name:ident $(#[$enum_attr:meta])* { $($enum:ident $(=> $enum_des:expr)?),* }),*
                 })?
             }),*
         }
     ) => {
         $(
-            $(#[$enum_attr])*
-            #[derive(Clone, ValueEnum)]
-            enum $enum_name { $($enum),* }
-        )*
+            $(
+                $(#[$enum_attr])*
+                #[derive(Clone, ValueEnum)]
+                enum $enum_name { 
+                    $(
+                        $(#[doc = enum_des])?
+                        $enum
+                    ),* 
+                }
+            )*
+        )?
 
         #[derive(Subcommand)]
         pub enum $subcommands {
@@ -46,6 +53,7 @@ macro_rules! cli_interface {
                     $(
                         $(#[$flag_attr])*
                         #[arg(help = $flag_des)]
+                        $(#[arg(long_help = $flag_long_des)])?
                         $flag: $flag_type
                     ),*
                 }
