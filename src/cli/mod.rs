@@ -10,15 +10,17 @@ pub struct Cli {
     pub command: GystSubcommand,
 }
 
-#[derive(Subcommand)]
-pub enum GystSubcommand {
-    #[command(about = "", long_about = "")]
-    New {}
-}
-
-#[derive(Clone, ValueEnum)]
-#[clap(rename_all = "snake_case")]
-pub enum Lang {
-    C,
-    Cpp,
-}
+cli_interface!(
+    GystSubcommand {
+        New {
+            about => "Create new project or create to an existing project",
+            long_about => "",
+            flags {
+                lang #[arg(long, value_enum)] : ProjectLang => "" 
+            },
+            enums {
+                ProjectLang { C, Cpp }
+            }
+        }
+    }
+);
