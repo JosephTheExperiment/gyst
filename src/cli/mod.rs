@@ -1,5 +1,5 @@
 mod macros;
-use crate::cli_build_interface;
+use crate::{cli_build_interface, subcommands_build_interface};
 use clap::{Args, Parser, Subcommand, ValueEnum};
 use std::path::PathBuf;
 
@@ -10,4 +10,4 @@ pub struct Cli {
     pub command: GystSubcommand,
 }
 
-cli_build_interface!(GystSubcommand {});
+subcommands_build_interface!(GystSubcommand {});
