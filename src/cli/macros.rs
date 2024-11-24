@@ -127,8 +127,8 @@ macro_rules! cli_build_interface {
             )*
         )?
 
-        $(#[$cli_attr])*
         #[derive(Parser)]
+        $(#[$cli_attr])*
         pub struct $cli {
             $(
                 $(#[$subcommands_attr])*
