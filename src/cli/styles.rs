@@ -14,7 +14,7 @@ pub fn get_styles() -> clap::builder::Styles {
                 .underline()
                 .fg_color(Some(Ansi(AnsiColor::Yellow))),
         )
-        .literal(Style::new().fg_color(Some(Ansi(AnsiColor::BrightMagenta))))
+        .literal(Style::new().fg_color(Some(Ansi(AnsiColor::Green))))
         .invalid(Style::new().bold().fg_color(Some(Ansi(AnsiColor::Red))))
         .error(Style::new().bold().fg_color(Some(Ansi(AnsiColor::Red))))
         .valid(
