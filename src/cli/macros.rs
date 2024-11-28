@@ -29,7 +29,7 @@ macro_rules! subcommands_build_interface {
                     about => $about:expr,
                     long_about => $long_about:expr,
                     $(    
-                        flags {
+                        args_flags {
                             $($flag:ident $($flag_attr:meta),*: $flag_type:ty => $flag_des:expr $(=> $flag_long_des:expr)?),*
                         }
                     )?
@@ -98,7 +98,7 @@ macro_rules! cli_build_interface {
                 subcommands $subcommands:ident $($subcommands_attr:meta),*
             ,)?
             $(
-                flags {
+                args_flags {
                     $($flag:ident $($flag_attr:meta),*: $flag_type:ty => $flag_des:expr $(=> $flag_long_des:expr)?),*
                 }
             )?
