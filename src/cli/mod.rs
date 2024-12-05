@@ -1,9 +1,4 @@
-mod macros;
+mod build_interface;
 mod styles;
-use crate::{cli_build_interface, subcommands_build_interface};
-use clap::{Parser, Subcommand, ValueEnum};
-use std::path::PathBuf;
-
-cli_build_interface!(Cli command(styles=styles::get_styles()) { subcommands GystSubcommand, });
-
-subcommands_build_interface!(GystSubcommand {});
+use crate::{cli_build, subcommand_arg_build};
+use clap::{Parser, Subcommand};
