@@ -1,23 +1,34 @@
+use unstringify::unstringify; 
+
+pub struct subcommand_info {
+    pub name: String,
+    pub about: String,
+    pub long_about: String,
+    pub args: Vec<String>,
+    pub options: Vec<String>
+}
+
 #[macro_export]
 macro_rules! subcommand_arg_build {
     (
-        $subcommand_args:ident $($subcommand_args_attr:meta),* {
-            fn_des => $fn_des:ident,
+        $($subcommand_args_attr:meta),* $subcommand_args:ident {
+            name => $subcommand:ident,
             about => $about:expr,
-            long_about => $long_about:expr
+            long_about => $long_about:expr,
+            fn_info => $fn_info:ident
             $(,
                 args {
-                    $($arg:ident $($arg_attr:meta),*: $arg_type:ty => $arg_des:expr),*
+                    $($($arg_attr:meta),* $arg:ident : $arg_type:ty => $arg_des:expr),*
                 }
             )?
             $(,
                 options {
-                    $($option:ident $($option_attr:meta),*: $option_type:ty => $option_des:expr),*
+                    $($($option_attr:meta),* $option:ident : $option_type:ty => $option_des:expr),*
                 }
             )?
             $(,
                 enums {
-                    $($enum_name:ident $($enum_attr:meta),* { $($enum:ident => $enum_des:expr),* }),*
+                    $($($enum_attr:meta),* $enum_name:ident { $($enum:ident => $enum_des:expr),* }),*
                 }
             )?
         }
@@ -35,7 +46,15 @@ macro_rules! subcommand_arg_build {
             )*
         )?
 
-        pub fn fn_des() -> (String, String) { ($about.to_string(), $long_about.to_string()) }
+        pub fn $fn_info() -> subcommand_info {
+            subcommand_info {
+                name: String::from(stringify!($subcommand)),
+                about: String::from($about),
+                long_about: String::from($long_about),
+                args: vec![$($(String::from(stringify!($arg))),*)?],
+                options: vec![$($(String::from(stringify!($option))),*)?]
+            }
+        }
 
         $(#[$subcommand_arg_attr:meta])*
         #[derive(Args)]
@@ -59,66 +78,10 @@ macro_rules! subcommand_arg_build {
 }
 
 #[macro_export]
-macro_rules! cli_build {
+macro_rules! subcommands_enum_build {
     (
-        $cli:ident $($cli_attr:meta),* {
-            $(
-                subcommands $subcommands:ident $($subcommands_attr:meta),*
-            ,)?
-            $(
-                args_flags {
-                    $($flag:ident $($flag_attr:meta),*: $flag_type:ty => $flag_des:expr $(=> $flag_long_des:expr)?),*
-                }
-            )?
-            $(,
-                options {
-                    $($option:ident $($option_attr:meta),*: $option_type:ty => $option_des:expr $(=> $option_long_des:expr)?),*
-                }
-            )?
-            $(,
-                enums {
-                    $($enum_name:ident $($enum_attr:meta),* { $($enum:ident $(=> $enum_des:expr)?),* }),*
-                }
-            )?
-        }
+  
     ) => {
-        $(
-            $(
-                $(#[$enum_attr])*
-                #[derive(Clone, ValueEnum)]
-                pub enum $enum_name {
-                    $(
-                        $(#[doc = $enum_des])?
-                        $enum
-                    ),*
-                }
-            )*
-        )?
-
-        #[derive(Parser)]
-        $(#[$cli_attr])*
-        pub struct $cli {
-            $(
-                $(#[$subcommands_attr])*
-                #[command(subcommand)]
-                pub command: $subcommands,
-            )?
-            $(
-                $(
-                    $(#[$flag_attr])*
-                    #[arg(help = $flag_des, required = true)]
-                    $(#[arg(long_help = $flag_long_des)])?
-                    pub $flag: $flag_type,
-                )*
-            )?
-            $(
-                $(
-                    $(#[$option_attr])*
-                    #[arg(help = $option_des, required = false)]
-                    $(#[arg(long_help = $option_long_des)])?
-                    pub $option: $option_type,
-                )*
-            )?
-        }
+  
     };
 }

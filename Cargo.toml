@@ -8,3 +8,4 @@ edition = "2021"
 [dependencies]
 anstyle = "1.0.10"
 clap = { version = "4.5.9", default-features = false, features = ["std", "color", "help", "usage", "error-context", "derive"] }
+unstringify = "0.1.4"
