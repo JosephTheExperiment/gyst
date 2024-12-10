@@ -38,7 +38,7 @@ macro_rules! subcommand_args {
                 options { $($($option_attr:meta),* $option:ident : $option_type:ty => $option_des:expr),* }
             )?
             $(,
-                enums { $($($enum_attr:meta),* $enum_name:ident { $($enum:ident => $enum_des:expr),* }),* }
+                enums { $($($enum_attr:meta),* $enum:ident { $($variant:ident => $enum_des:expr),* }),* }
             )?
         }
     ) => {
@@ -46,8 +46,8 @@ macro_rules! subcommand_args {
             $(
                 $(#[$enum_attr])*
                 #[derive(Clone, ValueEnum)]
-                pub enum $enum_name {
-                    $(#[doc = $enum_des] $enum),*
+                pub enum $enum {
+                    $(#[doc = $enum_des] $variant),*
                 }
             )*
         )?
@@ -121,7 +121,7 @@ macro_rules! cli {
                 options { $($($option_attr:meta),* $option:ident : $option_type:ty => $option_des:expr),* }
             )?
             $(,
-                enums { $($($enum_attr:meta),* $enum_name:ident { $($enum:ident => $enum_des:expr),* }),* }
+                enums { $($($enum_attr:meta),* $enum:ident { $($variant:ident => $enum_des:expr),* }),* }
             )?
         }
     ) => {
@@ -129,8 +129,8 @@ macro_rules! cli {
             $(
                 $(#[$enum_attr])*
                 #[derive(Clone, ValueEnum)]
-                pub enum $enum_name {
-                    $(#[doc = $enum_des] $enum),*
+                pub enum $enum {
+                    $(#[doc = $enum_des] $variant),*
                 }
             )*
         )?
