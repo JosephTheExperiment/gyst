@@ -26,7 +26,7 @@ macro_rules! subcommand {
                 #[derive(Clone, ValueEnum)]
                 $(#[$enum_attr])*
                 pub enum $enum { $(
-                    #[doc = $enum_des] $variant
+                    #[clap(about = $enum_des)] $variant
                 ),* }
             )*
         )?
