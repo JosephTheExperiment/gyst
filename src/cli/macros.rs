@@ -31,7 +31,7 @@ macro_rules! subcommand {
             )*
         )?
 
-        paste! {            
+        paste! {
             #[derive(Args)]
             #[command(about = $about, long_about = $long_about)]
             $(#[$subcommand_args_attr:meta])*
@@ -102,7 +102,7 @@ macro_rules! cli {
         #[derive(Parser)]
         $(#[$cli_attr])*
         pub struct $cli {
-            $( 
+            $(
                 #[command(subcommand)] pub command: $subcommands_enum,
             )?
             $(

@@ -1,5 +1,4 @@
-mod cli_build;
-mod styles;
+mod macros; mod styles; mod architecture;
 use crate::{subcommand, cli};
 use crate::cli::styles::get_styles;
 use clap::{Args, Parser, Subcommand};
