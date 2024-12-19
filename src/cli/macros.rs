@@ -1,4 +1,11 @@
 #[macro_export]
+macro_rules! mod_all {
+    ($($visibility:vis $mod:ident),*) => {
+        $($visibility mod $mod;)*
+    };
+}
+
+#[macro_export]
 macro_rules! subcommand {
     (
         $(#[$subcommand_args_attr:meta])* $subcommand:ident {

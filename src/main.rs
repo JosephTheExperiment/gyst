@@ -2,7 +2,7 @@ mod cli;
 mod cmake;
 mod gyst;
 use clap::Parser;
-use cli::Cli;
+use crate::cli::subcommands::Cli;
 
 fn main() {
     let cli = Cli::parse();
