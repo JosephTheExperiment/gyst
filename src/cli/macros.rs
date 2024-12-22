@@ -13,12 +13,12 @@ macro_rules! subcommand {
             long_about => $long_about:expr;
             $(
                 args { $(
-                    $(#[$arg_attr:meta])* $arg:ident : $arg_type:ty => $arg_des:expr
+                    $(#[$arg_attr:meta])* $arg:ident : $arg_type:ty => $arg_des:expr $(=> $arg_long_des:expr)?
                 ),* };
             )?
             $(
                 options { $(
-                    $(#[$option_attr:meta])* $option:ident : $option_type:ty => $option_des:expr
+                    $(#[$option_attr:meta])* $option:ident : $option_type:ty => $option_des:expr $(=> $option_long_des:expr)?
                 ),* };
             )?
             $(
@@ -33,7 +33,7 @@ macro_rules! subcommand {
                 #[derive(Clone, ValueEnum)]
                 $(#[$enum_attr])*
                 pub enum $enum { $(
-                    #[clap(about = $enum_des)] $variant
+                    #[clap(help = $enum_des)] $variant
                 ),* }
             )*
         )?
@@ -45,6 +45,7 @@ macro_rules! subcommand {
             pub struct [<$subcommand Args>] {
                 $(
                     $(
+                        $(#[arg(long_help = format!("{}\n{}", $arg_des, $arg_long_des))])?
                         #[arg(help = $arg_des, required = true)]
                         $(#[$arg_attr])*
                         pub $arg: $arg_type,
@@ -52,6 +53,7 @@ macro_rules! subcommand {
                 )?
                 $(
                     $(
+                        $(#[arg(long_help = format!("{}\n{}", $option_des, $option_long_des))])?
                         #[arg(help = $option_des, required = false)]
                         $(#[$option_attr])*
                         pub $option: $option_type,
@@ -71,12 +73,12 @@ macro_rules! cli {
             )?
             $(
                 args { $(
-                    $(#[$arg_attr:meta])* $arg:ident : $arg_type:ty => $arg_des:expr
+                    $(#[$arg_attr:meta])* $arg:ident : $arg_type:ty => $arg_des:expr $(=> $arg_long_des:expr)?
                 ),* };
             )?
             $(
                 options { $(
-                    $(#[$option_attr:meta])* $option:ident : $option_type:ty => $option_des:expr
+                    $(#[$option_attr:meta])* $option:ident : $option_type:ty => $option_des:expr $(=> $option_long_des:expr)?
                 ),* };
             )?
             $(
@@ -101,7 +103,7 @@ macro_rules! cli {
                 #[derive(Clone, ValueEnum)]
                 $(#[$enum_attr])*
                 pub enum $enum { $(
-                    #[doc = $enum_des] $variant
+                    #[help = $enum_des] $variant
                 ),* }
             )*
         )?
@@ -114,15 +116,17 @@ macro_rules! cli {
             )?
             $(
                 $(
-                    $(#[$arg_attr])*
+                    $(#[arg(long_help = format!("{}\n{}", $arg_des, $arg_long_des))])?
                     #[arg(help = $arg_des, required = true)]
+                    $(#[$arg_attr])*
                     pub $arg: $arg_type,
                 )*
             )?
             $(
                 $(
-                    $(#[$option_attr])*
+                    $(#[arg(long_help = format!("{}\n{}", $option_des, $option_long_des))])?
                     #[arg(help = $option_des, required = false)]
+                    $(#[$option_attr])*
                     pub $option: $option_type,
                 )*
             )?
