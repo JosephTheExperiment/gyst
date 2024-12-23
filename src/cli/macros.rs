@@ -13,12 +13,12 @@ macro_rules! subcommand {
             long_about => $long_about:expr;
             $(
                 args { $(
-                    $(#[$arg_attr:meta])* $arg:ident : $arg_type:ty => $arg_des:expr $(=> $arg_long_des:expr)?
+                    $([$($arg_attr:tt)*])? $arg:ident: $arg_type:ty => $arg_des:expr $(=> $arg_long_des:expr)?
                 ),* };
             )?
             $(
                 options { $(
-                    $(#[$option_attr:meta])* $option:ident : $option_type:ty $(= $default:expr)? => $option_des:expr $(=> $option_long_des:expr)?
+                    $([$($option_attr:tt)*])? $option:ident: $option_type:ty $(= $default:expr)? => $option_des:expr $(=> $option_long_des:expr)?
                 ),* };
             )?
             $(
@@ -48,7 +48,7 @@ macro_rules! subcommand {
                     $(
                         $(#[arg(long_help = format!("{}\n\n{}", $arg_des, $arg_long_des))])?
                         #[arg(help = $arg_des, required = true)]
-                        $(#[$arg_attr])*
+                        $(#[arg($($arg_attr)*)])?
                         pub $arg: $arg_type,
                     )*
                 )?
@@ -57,7 +57,7 @@ macro_rules! subcommand {
                         $(#[arg(long_help = format!("{}\n\n{}", $option_des, $option_long_des))])?
                         $(#[arg(default_value_t = $default)])?
                         #[arg(help = $option_des, required = false)]
-                        $(#[$option_attr])*
+                        $(#[arg($($option_attr)*)])?
                         pub $option: $option_type,
                     )*
                 )?
@@ -75,12 +75,12 @@ macro_rules! cli {
             )?
             $(
                 args { $(
-                    $(#[$arg_attr:meta])* $arg:ident : $arg_type:ty => $arg_des:expr $(=> $arg_long_des:expr)?
+                    $([$($arg_attr:tt)*])? $arg:ident: $arg_type:ty => $arg_des:expr $(=> $arg_long_des:expr)?
                 ),* };
             )?
             $(
                 options { $(
-                    $(#[$option_attr:meta])* $option:ident : $option_type:ty $(= $default:expr)? => $option_des:expr $(=> $option_long_des:expr)?
+                    $([$($option_attr:tt)*])? $option:ident: $option_type:ty $(= $default:expr)? => $option_des:expr $(=> $option_long_des:expr)?
                 ),* };
             )?
             $(
@@ -121,7 +121,7 @@ macro_rules! cli {
                 $(
                     $(#[arg(long_help = format!("{}\n\n{}", $arg_des, $arg_long_des))])?
                     #[arg(help = $arg_des, required = true)]
-                    $(#[$arg_attr])*
+                    $(#[arg($($arg_attr)*)])?
                     pub $arg: $arg_type,
                 )*
             )?
@@ -130,7 +130,7 @@ macro_rules! cli {
                     $(#[arg(long_help = format!("{}\n\n{}", $option_des, $option_long_des))])?
                     $(#[arg(default_value_t = $default)])?
                     #[arg(help = $option_des, required = false)]
-                    $(#[$option_attr])*
+                    $(#[arg($($option_attr)*)])?
                     pub $option: $option_type,
                 )*
             )?
