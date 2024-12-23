@@ -12,8 +12,8 @@ subcommand!(
             #[arg(long)] lang: ProjectLang => "Project name"
         };
         options {
-            #[arg(long, value_enum, default_value_t = ProjectType::App)] r#type: ProjectType => "Project type",
-            #[arg(long, default_value_t = String::from("./"))] to: String => "Specifies a directory for the project" 
+            #[arg(long, value_enum)] r#type: ProjectType = ProjectType::App => "Project type",
+            #[arg(long)] to: String = String::from("./") => "Specifies a directory for the project" 
         };
         enums {
             ProjectLang { C => "C project", Cpp => "C++ project" },
