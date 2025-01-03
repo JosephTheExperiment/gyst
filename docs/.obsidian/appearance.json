@@ -1,0 +1,9 @@
+{
+  "accentColor": "",
+  "theme": "obsidian",
+  "cssTheme": "Material Ocean",
+  "textFontFamily": "JetBrains Mono",
+  "enabledCssSnippets": [
+    "index"
+  ]
+}

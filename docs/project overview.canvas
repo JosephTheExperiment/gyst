@@ -1,0 +1,19 @@
+{
+	"nodes":[
+		{"id":"a4b549c6b56322e5","type":"group","x":200,"y":200,"width":780,"height":440,"label":"Tools"},
+		{"id":"8747f4900029c0c5","type":"group","x":200,"y":-180,"width":780,"height":300,"label":"Topcs"},
+		{"id":"553812c84be3ce54","type":"text","text":"## Conan\n","x":331,"y":240,"width":158,"height":60},
+		{"id":"6317a07a274183b8","type":"text","text":"- ### Rust crates\n\t- Clap\n\t- Crossterm\n\t- Inquire\n\t- Paste","x":260,"y":430,"width":300,"height":170},
+		{"id":"a87086193aba0b98","type":"text","text":"## Cmake (T-T)\n- ### the only thing i know is that i know nothing\n","x":644,"y":240,"width":236,"height":310},
+		{"id":"155f161162c2e2a0","type":"text","text":"## Rust","x":331,"y":335,"width":158,"height":60},
+		{"id":"517919f8308096fa","type":"text","text":"- ## How to make a good cli tool ?\n\t- [CLI guidelines](https://clig.dev/)\n\t- [12 Factor CLI Apps](https://medium.com/@jdxcode/12-factor-cli-apps-dd3c227a0e46)\n\t- [Better cli](https://bettercli.org)","x":584,"y":-117,"width":356,"height":192},
+		{"id":"9eef70dc5e7793bd","type":"text","text":"## Project structure in c/c++","x":262,"y":-139,"width":264,"height":118},
+		{"id":"99cd761a1c813cdf","type":"text","text":"## Testing in c/c++","x":264,"y":0,"width":260,"height":75},
+		{"id":"0211f7424919515c","type":"text","text":"# gyst\n","x":-220,"y":160,"width":140,"height":60}
+	],
+	"edges":[
+		{"id":"207eb6546e64255a","fromNode":"155f161162c2e2a0","fromSide":"bottom","toNode":"6317a07a274183b8","toSide":"top","color":"#ff7f00"},
+		{"id":"3369fa75e6293ab5","fromNode":"0211f7424919515c","fromSide":"bottom","toNode":"a4b549c6b56322e5","toSide":"left","color":"#ffffff"},
+		{"id":"5c0ae126403e6338","fromNode":"0211f7424919515c","fromSide":"top","toNode":"8747f4900029c0c5","toSide":"left","color":"#ffffff"}
+	]
+}
