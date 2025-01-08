@@ -33,12 +33,19 @@
 	- name/version.. => Libraries names, and versions(conan only). 
 - Options
 	- --conan: flags => Conan flags.
+	=> These flags will have priority over the flags in the project_info.toml file.
+	- --vcpkg: flags => Vcpkg flags.
     => These flags will have priority over the flags in the project_info.toml file.
 ---
 # uninstall
-- Description => Uninstalls libraries from the project.
+- Description => Uninstalls libraries.
 - Args 
 	- name.. => Libraries names.
+---
+# update
+- Description => Updates libraries.
+- Args 
+	- name/version.. => Libraries names, and versions(conan only).
 ---
 # add
 - Description => Adds file, section, or module to some directory.
@@ -65,8 +72,8 @@
 - Flags
 	- -n, --name: {cmake flags, vcpkg flags, conan flags} => Variable. 
 	cmake flags: {cmake_config, cmake_build, cmake_test}
-	conan flags: {conan_install}
-	vcpkg flags: {}
+	conan flags: {conan_install, conan_common_options}
+	vcpkg flags: {vcpkg_install, vcpkg_common_options}
 	- --to: flags => New value.
 ---
 # init

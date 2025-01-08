@@ -10,7 +10,7 @@ NOTE: If an error have taken place in this stage reverse any changes made before
 ## 3. Compilation (2 sections)
 1. What changed in the state of the project **OR** What error have occurred from other stages 
 2. Suggesting what to do next 
-<hr>
+---
 # Notes for good design
 ## Displaying information 
 - Remember to NOT output too little to confuse and NOT too much to overwhelm

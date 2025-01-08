@@ -12,7 +12,7 @@
 	- test.cpp
 - build
 	- conan **(if conan is enabled)**
-- [[conanfile.py]] **(if conan is enabled)**
+- [[conanfile.py]]/[[conanfile.txt]] **(if conan is enabled)**
 ## Include libraries
 - include
 	- project name

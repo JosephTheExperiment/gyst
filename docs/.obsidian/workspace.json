@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "design/Cli design.md",
+                "file": "Project tasks.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Cli design"
+              "title": "Project tasks"
             }
           }
         ],
@@ -152,8 +152,8 @@
             "state": {
               "type": "git-view",
               "state": {},
-              "icon": "git-pull-request",
-              "title": "Source Control"
+              "icon": "lucide-file",
+              "title": "Plugin no longer active"
             }
           }
         ],
@@ -178,16 +178,16 @@
   "active": "80746d17e4324687",
   "lastOpenFiles": [
     "cli details/Subcommands.md",
+    "cli details/Cli design.md",
     "cli details/Project template.md",
-    "files/cmakelists/cmakelists.txt_{module, section}.md",
-    "Project tasks.md",
-    "project overview.canvas",
+    "files/project_info.toml.md",
     "files/Vcpkg manifest.md",
+    "Project overview.canvas",
+    "Project tasks.md",
     "design/Structural design.md",
-    "design/Cli design.md",
     "files/CMakeUserPresets.json_{conan, vcpkg}.md",
     "files/CmakePresets.json.md",
-    "files/project_info.toml.md",
+    "files/cmakelists/cmakelists.txt_{module, section}.md",
     "[.md",
     "files/cmakelists/cmakelists.txt_src.md",
     "files/cmakelists/cmakelists.txt_testing.md",
