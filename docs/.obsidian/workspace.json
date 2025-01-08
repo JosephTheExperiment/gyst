@@ -177,6 +177,7 @@
   },
   "active": "80746d17e4324687",
   "lastOpenFiles": [
+    "cli details/Subcommands.md",
     "Project tasks.md",
     "Project overview.canvas",
     "files/Vcpkg manifest.md",
@@ -184,7 +185,6 @@
     "files/CMakeUserPresets.json_{conan, vcpkg}.md",
     "files/CmakePresets.json.md",
     "cli details/Cli design.md",
-    "cli details/Subcommands.md",
     "files/cmakelists/cmakelists.txt_testing.md",
     "files/cmakelists/cmakelists.txt_src.md",
     "files/cmakelists/cmakelists.txt_{module, folder}.md",
