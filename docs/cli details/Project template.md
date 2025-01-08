@@ -35,12 +35,12 @@
 - module name	 
 	- module name.h/hpp
 	- module name.c/cpp
-	- [[cmakelists.txt_{module, section}]]
+	- [[cmakelists.txt_{module, folder}]]
 ### Include libararies
 - module name	 
 	- module name.h/hpp
-	- [[cmakelists.txt_{module, section}]]
-## Sections layout
+	- [[cmakelists.txt_{module, folder}]]
+## folders layout
 ### All
-- section name
-	- [[cmakelists.txt_{module, section}]]
+- folder name
+	- [[cmakelists.txt_{module, folder}]]

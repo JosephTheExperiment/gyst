@@ -48,23 +48,23 @@
 	- name/version.. => Libraries names, and versions(conan only).
 ---
 # add
-- Description => Adds file, section, or module to some directory.
+- Description => Adds file, folder, or module to some directory.
 - Flags
-	- -n, --name: name => file, section, or module name.  
-	- -t, --type: {f, sec, mod} => Specifies a type to add.
+	- -n, --name: name => file, folder, or module name.  
+	- -t, --type: {f, flr, mod} => Specifies a type to add.
 - Options
 	- --to: path = "./" => Specifies a directory to add to. 
 	=> If the dir is dosen't exist ask for confirmation to create one.
 	- -f, --force => Add, or replace without asking for confirmation.
 ---
 # delete 
-- Description => Deletes file, section, or module from some directory.
+- Description => Deletes file, folder, or module from some directory.
 - Flags
-	- -n, --name: name => file, section, or module name.
-	- -t, --type: {f, sec, mod} => Type to delete.
+	- -n, --name: name => file, folder, or module name.
+	- -t, --type: {f, flr, mod} => Type to delete.
 - Options
 	- --from: path = "./" => Specifies a directory to delete from. 
-	=> If some section, or a module has files ask for confirmation to delete it.
+	=> If some folder, or a module has files ask for confirmation to delete it.
 	- -f, --force => Delete without asking for confirmation.
 ---
 # set

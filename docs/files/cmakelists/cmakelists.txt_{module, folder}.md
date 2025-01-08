@@ -12,7 +12,7 @@ target_sources(module_name
 )
 ```
 <hr>
-# Sections
+# Folders
 ```text
 target_sources(${PROJECT_NAME} 
 	PRIVATE 
