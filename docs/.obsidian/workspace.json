@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Project tasks.md",
+                "file": "cli details/Subcommands.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Project tasks"
+              "title": "Subcommands"
             }
           }
         ],
@@ -177,6 +177,7 @@
   },
   "active": "80746d17e4324687",
   "lastOpenFiles": [
+    "Project tasks.md",
     "Project overview.canvas",
     "files/Vcpkg manifest.md",
     "files/project_info.toml.md",
@@ -189,7 +190,6 @@
     "files/cmakelists/cmakelists.txt_{module, folder}.md",
     "cli details/Project template.md",
     "files/cmakelists/cmakelists.txt.md",
-    "Project tasks.md",
     "design/Structural design.md",
     "[.md",
     "files/vcpkg",
