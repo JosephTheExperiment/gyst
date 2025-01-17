@@ -4,27 +4,27 @@
 	- --no-color => Disables color.
 ---
 # new
-- Description => Creates new project, or adds a target to an existing project.
+- Description => Creates a new project, or adds a target to an existing project.
 - Flags
-	- -n, --name: name => Project name.
-	- --lang: {c, c++} => Project language.
+	- -n, --name: name => Project's name.
+	- --lang: {c, c++} => Project's language.
 	=> This flag isn't required if you are adding to an existing project.
 - Options
-	- -t, --type: {app, shared_lib, static_lib, include_lib} = app => Project type.
+	- -t, --type: {app, shared_lib, static_lib, include_lib} = app => Project's type.
 	- --to: path = "./" => Specifies a directory for the project.
 	- -G: build system => Build system generator for cmake; for help use: cmake --help. 
 		
 	- Optional features
 		- --test: name/version => Specifies a unit testing framework, adds tests, and enables testing.
-		- --git => Initializes git via: git init.
+		- --git: repo url => Initializes git via: git init, or clones a repo if it's url is given.
 		- --conan: {txt, py} = txt => Add [[conanfile.txt]], or [[conanfile.py]] to install libraries via conan.
 		- --vcpkg: baseline => Add [[Vcpkg manifest]] to install libraries via vcpkg.
 		
 	- Additional information
 		- --info => Add more information via: version, description, and homepage. 
-		- --version: version => Project version.
-		- --description: description => Project description. 
-		- --homepage: homepage => Project homepage.
+		- --version: version => Project's version.
+		- --description: description => Project's description. 
+		- --homepage: homepage => Project's homepage.
 ---
 # install
 - Description => Installs libraries via conan  
