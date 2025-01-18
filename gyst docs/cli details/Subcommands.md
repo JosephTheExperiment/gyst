@@ -27,9 +27,9 @@
 ---
 # install
 - Description => Installs libraries via conan  
-- Long description => Installs libraries via conan using the the name, and version(conan only) of the library, and to search for libraries in conan visit conan center at : https://conan.io/center, and for vcpkg visit vcpkg packages at https://vcpkg.io/en/packages, or use the command: conan/vcpkg search.
+- Long description => Installs libraries via conan using names and versions(conan required) of libraries, and to search for libraries in conan visit conan center at: https://conan.io/center, and for vcpkg visit vcpkg packages at https://vcpkg.io/en/packages, or use the command: conan/vcpkg search.
 - Args:
-	- name/version(conan required).. => Libraries names, and versions. 
+	- names/versions(conan required).. => One or more libraries names and versions. 
 - Options:
 	- --conan: flags => Conan flags.
 	=> These flags will have priority over the flags in the project_info.toml file.
@@ -39,17 +39,17 @@
 # uninstall
 - Description => Uninstalls libraries.
 - Args: 
-	- name.. => Libraries names.
+	- name.. => One or more libraries names.
 ---
 # update
 - Description => Updates libraries.
 - Args: 
-	- name/version(conan required).. => Libraries names, and versions.
+	- names/versions(conan required).. => One or more libraries names and versions.
 ---
 # add
-- Description => Adds a source/header file, a folder, a module, or a library.
+- Description => Adds one or more source/header files, directories, modules, or libraries.
 - Args:
-	- name, names/versions(conan required).. => A name(s) (, and maybe libraries versions) for the type specified.
+	- names, names/versions(conan required).. => One or more names and versions (in case of adding libraries) for the type specified.
 - Flags:
 	- -t, --type: {s, h, dir, mod, lib} => Specifies a type to add.
 - Options:
@@ -58,9 +58,9 @@
 	- -f, --force => Add, or replace without asking for confirmation.
 ---
 # delete
-- Description => Deletes a source/header file, a folder, a module, or a library.
+- Description => Deletes one or more source/header files, directories, modules, or libraries.
 - Args:	
-	- name, name/version(conan required).. => A name for the type specified.
+	- names, names/versions(conan required).. => One or more names and versions (in case of adding libraries) for the type specified.
 - Flags:
 	- -t, --type: {s, h, dir, mod, lib} => Specifies a type to delete.
 - Options:
