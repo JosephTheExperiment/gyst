@@ -89,7 +89,7 @@
 - Description => Builds a target.
 - Long description => Builds a target, but if no input was given by default it will build the first target in the project_info.toml file.
 - Optional args:
-	- -n, --name: target => App, or library name. 
+	- -n, --name: target => App or library name. 
 	=> Write '.' to build all targets.
 - Options:
 	- --release => Builds in release mode. 
