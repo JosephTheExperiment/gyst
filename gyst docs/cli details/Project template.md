@@ -1,18 +1,18 @@
 # New project template
 ## Main
-- .git **(if git is enabeld)** 
+- .git (if git is enabeld) 
 - README.md
 - [[CmakePresets.json]]
 - [[CMakeUserPresets.json_{conan, vcpkg}]]
 - [[project_info.toml]]
-- .gitignore **(if git is enabeld)** => {build directory, CMakeUserPresets.json}
+- .gitignore (if git is enabeld) => {build directory, CMakeUserPresets.json}
 - [[cmakelists.txt]]
-- tests **(if testing is enabled)**
+- tests (if testing is enabled)
 	- [[cmakelists.txt_testing]]
 	- test.cpp
 - build
-	- conan **(if conan is enabled)**
-- [[conanfile.py]]/[[conanfile.txt]] **(if conan is enabled)**
+	- conan (if conan is enabled)
+- [[conanfile.py]]/[[conanfile.txt]] (if conan is enabled)
 ## Include libraries
 - include
 	- project name
@@ -35,12 +35,12 @@
 - module name	 
 	- module name.h/hpp
 	- module name.c/cpp
-	- [[cmakelists.txt_{module, folder}]]
+	- [[cmakelists.txt_{module, directory}]]
 ### Include libararies
 - module name	 
 	- module name.h/hpp
-	- [[cmakelists.txt_{module, folder}]]
-## folders layout
+	- [[cmakelists.txt_{module, directory}]]
+## Directory layout
 ### All
 - folder name
-	- [[cmakelists.txt_{module, folder}]]
+	- [[cmakelists.txt_{module, directory}]]

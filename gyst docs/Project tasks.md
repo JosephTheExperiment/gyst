@@ -1,8 +1,7 @@
 # Work on
 1. Template for vcpkg.
-2. Separate add (library) from the install (library) command.
-3. Implement the cli.
-4. Github repo.
+2. Implement the cli.
+3. Github repo.
 ---
 # Learn about
 - Env variables.
