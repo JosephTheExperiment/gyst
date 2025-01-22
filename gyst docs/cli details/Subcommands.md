@@ -26,11 +26,12 @@
 		- --homepage: homepage => Project homepage.
 ---
 # install
-- Description => Installs libraries via conan  
+- Description => Installs libraries via the package manager specified.  
 - Long description => Installs libraries via conan using names and versions(conan required) of libraries, and to search for libraries in conan visit conan center at: https://conan.io/center, and for vcpkg visit vcpkg packages at https://vcpkg.io/en/packages, or use the command: conan/vcpkg search.
 - Args:
-	- names/versions(conan required).. => One or more libraries names and versions. 
+	- names/versions(conan required):linking.. => One or more libraries names and versions. 
 - Options:
+	- --linking: {static, shared/dynamic} = static => Specifies the way to link and build the libraries installed. 
 	- --conan: flags => Conan flags.
 	=> These flags will have priority over the flags in the project_info.toml file.
 	- --vcpkg: flags => Vcpkg flags.
@@ -39,33 +40,34 @@
 # uninstall
 - Description => Uninstalls libraries.
 - Args: 
-	- name.. => One or more libraries names.
+	- name.. => Libraries names.
 ---
 # update
 - Description => Updates libraries.
 - Args: 
-	- names/versions(conan required).. => One or more libraries names and versions.
+	- name/version(conan required).. => Libraries names and versions.
 ---
 # add
 - Description => Adds one or more source/header files, directories, modules, or libraries.
 - Args:
-	- names, names/versions(conan required).. => One or more names and versions (in case of adding libraries) for the type specified.
+	- name.., name/version(conan required):linking.. => Names for the type specified, or in the case of adding libraries names, version, and linking settings.
 - Flags:
 	- -t, --type: {s, h, dir, mod, lib} => Specifies a type to add.
 - Options:
+	- --linking: {static, shared/dynamic} = static => Specifies the way to link and build the libraries installed. 
 	- --to: path = "./" => Specifies a directory to add to. 
-	=> If the directory specified dosen't exist thin it will create it.
+	=> If the directory specified dosen't exist thin it will create it, and this flags does nothing for adding libraries.
 	- -f, --force => Add, or replace without asking for confirmation.
 ---
 # delete
 - Description => Deletes one or more source/header files, directories, modules, or libraries.
 - Args:	
-	- names, names/versions(conan required).. => One or more names and versions (in case of adding libraries) for the type specified.
+	- name.. => Names for the type specified.
 - Flags:
 	- -t, --type: {s, h, dir, mod, lib} => Specifies a type to delete.
 - Options:
-	- --to: path = "./" => Specifies a directory to delete from. 
-	=> If the directory specified dosen't exist thin it will create it.
+	- --from: path = "./" => Specifies a directory to delete from. 
+	=> If the directory specified have anything inside it thin ask for confirmation to delete it.
 	- -f, --force => Delete without asking for confirmation.
 ---
 # set
