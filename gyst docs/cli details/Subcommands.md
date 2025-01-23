@@ -86,6 +86,7 @@
 	- --git: repo url => Initializes git via: git init, or clones a repo if it's url is given.
 	- --conan: {txt, py} = txt => Add [[conanfile.txt]], or [[conanfile.py]] to install libraries via conan.
 	- --vcpkg: baseline => Add [[Vcpkg manifest]] to install libraries via vcpkg.
+	- --triplets: architecture.. system.. building options.., default or community triplets => Adds triplets directory, and the chosen triplets for vcpkg.
 ---
 # build 
 - Description => Builds a target.

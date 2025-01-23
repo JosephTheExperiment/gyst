@@ -7,12 +7,13 @@
 - [[project_info.toml]]
 - .gitignore (if git is enabeld) => {build directory, CMakeUserPresets.json}
 - [[cmakelists.txt]]
+- [[conanfile.py]]/[[conanfile.txt]] (if conan is enabled)
 - tests (if testing is enabled)
 	- [[cmakelists.txt_testing]]
 	- test.cpp
 - build
 	- conan (if conan is enabled)
-- [[conanfile.py]]/[[conanfile.txt]] (if conan is enabled)
+- triplets (if using vcpkg and triplets have been chosen)
 ## Include libraries
 - include
 	- project name

@@ -7,7 +7,7 @@
 ## 2. Runtime (1 parts) 
 1. Run the subcommand, and Showing the inner working, but reverse any changes made before an error if it happened.
 ## 3. Compilation (2 sections)
-1. What changed in the state of the project, **or** what error have occurred from other stages. 
+1. What changed in the state of the project, **or** what error have occurred from other stages.  
 2. Suggesting what to do next. 
 ---
 # Notes for good design
