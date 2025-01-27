@@ -1,17 +1,17 @@
 # Modules
 ```text
-add_library(module_name MODULE)
-target_link_libraries(${PROJECT_NAME} PRIVATE module_name)
+add_library(<module name> MODULE)
+target_link_libraries(${PROJECT_NAME} PRIVATE <module name>)
 
-target_sources(module_name 
+target_sources(<module name> 
 	PRIVATE 
-		module_name.{c, cpp}
+		<module name>.c/cpp
 	PRIVATE FILE_SET HEADERS
 	FILES
-		module_name.{h, hpp}
+		<module name>.h/hpp
 )
 ```
-<hr>
+---
 # Directories
 ```text
 target_sources(${PROJECT_NAME} 

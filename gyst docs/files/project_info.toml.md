@@ -3,10 +3,10 @@
 name = "" # Name
 language = "" # {c, c++}
 generator = "" # Cmake build system generator 
-package_manager = "" # {conan, vcpkg}
+package_manager = "" # {conan, vcpkg, hunter}
 
 [targets]
-target_name = [
+<target name> = [
 	{
 		name = "", # Name
 		type = "", # {app, shared_lib, static_lib, include_lib}
@@ -15,7 +15,7 @@ target_name = [
 ]
 
 [dependencies]
-library_name = "library_version"
+<library name> = "<library version>"
 
 [flags]
 cmake_config = "-B build --preset default"  

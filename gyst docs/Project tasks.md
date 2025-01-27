@@ -8,7 +8,7 @@
 6. Testing projects.
 ---
 # Learn about
-- Env variables.
+- Environment variables.
 - Testing in c/c++.
 - Install in cmake.
 ---
