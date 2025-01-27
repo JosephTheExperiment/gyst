@@ -17,3 +17,5 @@
 ## Errors and conflicts
 - Any conflict should be solved by prompting the user, if you can fix an error; prompt the user then implement it, but if the cli isn't ran in tty display an error with the conflict.
 - When giving errors they should have descriptions, and suggestions to solve the error.
+## Working with the file system
+- Any created file, folder, or added data to a file should be checked if it does already exists, and working with the consideration of the result.     

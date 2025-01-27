@@ -24,7 +24,7 @@
 		},
 		{
 			"name": "default",
-			"generator": "",
+			"generator": "<generator>",
 			"inherits" "confg",
 			"cacheVariables": {
 				"CMAKE_BUILD_TYPE": "Debug"
@@ -32,7 +32,7 @@
 		},
 		{
 			"name": "release",
-			"generator": "",
+			"generator": "<generator>",
 			"inherits" "confg",
 			"cacheVariables": {
 				"CMAKE_BUILD_TYPE": "Release"

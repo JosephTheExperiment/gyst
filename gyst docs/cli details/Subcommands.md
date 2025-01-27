@@ -16,7 +16,7 @@
 	- Optional features:
 		- --test: name/version(conan required) => Specifies a unit testing framework, adds tests, and enables testing.
 		- --git: repo URL => Initializes git via: git init, or clones a repo if it's URL is given.
-		- --conan: {txt, py} = txt => Adds [[conanfile.{txt, py}]], or [[conanfile.py]] to install libraries via conan.
+		- --conan: {txt, py} = txt => Adds [[Conanfile]], or [[conanfile.py]] to install libraries via conan.
 		- --vcpkg: baseline => Adds [[Vcpkg manifest]] to install libraries via vcpkg.
 		
 	- Additional information:
@@ -84,7 +84,7 @@
 - Options:
 	- --test: name/version(conan required) => Specifies a unit testing framework, adds tests, and enables testing.
 	- --git: repo url => Initializes git via: git init, or clones a repo if it's url is given.
-	- --conan: {txt, py} = txt => Add [[conanfile.{txt, py}]], or [[conanfile.py]] to install libraries via conan.
+	- --conan: {txt, py} = txt => Add [[Conanfile]], or [[conanfile.py]] to install libraries via conan.
 	- --vcpkg: baseline => Add [[Vcpkg manifest]] to install libraries via vcpkg.
 	- --triplets: architecture.. system.. building options.., default or community triplets => Adds triplets directory, and the chosen triplets for vcpkg.
 ---
