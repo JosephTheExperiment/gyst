@@ -45,9 +45,9 @@
 - Description => Installs libraries via the package manager specified.  
 - Long description => Installs libraries via conan using names and versions(conan required) of libraries, and to search for libraries in conan visit conan center at: https://conan.io/center, and for vcpkg visit vcpkg packages at https://vcpkg.io/en/packages, or use the command: conan/vcpkg search.
 - Args:
-	- names/versions(conan required):linking.. => One or more libraries names and versions. 
+	- name/version(conan required):options.. => One or more libraries names, versions, and a conan profile or a vcpkg triplet.
 - Options:
-	- --linking: {static, shared/dynamic} = static => Specifies the way to link and build the libraries installed. 
+	- -op, --options: profile/triplet => If it wasn't specified with the library name and version this profile or triplet will apply. 
 	- --conan: flags => Conan flags.
 	=> These flags will have priority over the flags in the project_info.toml file.
 	- --vcpkg: flags => Vcpkg flags.
@@ -64,11 +64,11 @@
 - Description => Adds one or more source/header files, directories, modules, or libraries.
 - Args:
 	- name.. => One or more names for the type specified.
-	- name/version(conan required):options.. => One or more libraries names, versions, and linking/building options. (For libraries only)  
+	- name/version(conan required):options.. => One or more libraries names, versions, and a conan profile or a vcpkg triplet. (For libraries only)
 - Flags:
 	- -t, --type: {s, h, dir, mod, lib} => Specifies a type to add.
 - Options:
-	- --linking:  => If it wasn't specified with the library name and version those linkage options will apply. (For libraries only)
+	- -op, --options: profile/triplet => If it wasn't specified with the library name and version this profile or triplet will apply. (For libraries only)
 	- --to: path = "./" => Specifies a directory to add to (doesn't effect libraries). 
 	=> If the directory specified doesn't exist then ask for confirmation to create it.
 	- -f, --force => Add, or replace without asking for confirmation.
@@ -100,8 +100,9 @@
 	- --debug => Runs in debug mode.
 	- -i, --input: args => Input for the app.
 ## topic
--  Description => Explains common topics and ideas in gyst.
+-  Description => Explains common topics and ideas used in gyst.
 - Args:
 	- topic => Topic name.
+		- [[Linking and building options]]
 - Options:
-	- -l, --list => Lists all the topics available.
+	- -l, --list => Lists all the topics available in an alphabetical order.
