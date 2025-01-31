@@ -1,6 +1,5 @@
 # Work on
-1. Template for vcpkg.
-	- Triplets for every platform.
+1. linking and building options
 2. Rewrite cmakelists and presets files. 
 3. Add [hunter](https://github.com/cpp-pm/hunter) as the third package manager. 
 4. Implement the cli.

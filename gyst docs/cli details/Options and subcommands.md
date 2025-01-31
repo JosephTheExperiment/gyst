@@ -1,8 +1,9 @@
 # Common options
 - Options:
-	- --color: {auto, always, never} => Control color usage in the cli.
+	- --color: {auto, always, never} => Controls color usage in the cli.
 ---
-# new
+# Subcommands
+## new
 - Description => Creates a new project, or adds a target to an existing project.
 - Flags:
 	- -n, --name: name => Project name.
@@ -16,7 +17,7 @@
 	- Optional features:
 		- --test: name/version(conan required) => Specifies a unit testing framework, adds tests, and enables testing.
 		- --git: repo URL => Initializes git via: git init, or clones a repo if it's URL is given.
-		- --conan: {txt, py} = txt => Adds [[Conanfile]], or [[conanfile.py]] to install libraries via conan.
+		- --conan: {txt, py} = txt => Adds [[Conanfile]] to install libraries via conan.
 		- --vcpkg: baseline => Adds [[Vcpkg manifest]] to install libraries via vcpkg.
 		
 	- Additional information:
@@ -24,8 +25,23 @@
 		- --version: version => Project version.
 		- --description: description => Project description. 
 		- --homepage: homepage => Project homepage.
----
-# install
+## set
+- Description => Sets a variable to some value.
+- Flags:
+	- -n, --name: {cmake flags, vcpkg flags, conan flags} => Variable name. 
+	cmake flags: {cmake_config, cmake_build, cmake_test}
+	conan flags: {conan_install, conan_common_options}
+	vcpkg flags: {vcpkg_install, vcpkg_common_options}
+	- --to: flags => New value.
+## init
+- Description => Initializes some optional features to an existing project.  
+- Options:
+	- --test: name/version(conan required) => Specifies a unit testing framework, adds tests, and enables testing.
+	- --git: repo URL => Initializes git via: git init, or clones a repo if it's URL is given.
+	- --conan: {txt, py} = txt => Add [[Conanfile]] to install libraries via conan.
+	- --vcpkg: baseline => Add [[Vcpkg manifest]] to install libraries via vcpkg.
+	- --triplets: architecture.. system.. building options.., default or community triplets => Adds triplets directory, and the chosen triplets for vcpkg.
+## install
 - Description => Installs libraries via the package manager specified.  
 - Long description => Installs libraries via conan using names and versions(conan required) of libraries, and to search for libraries in conan visit conan center at: https://conan.io/center, and for vcpkg visit vcpkg packages at https://vcpkg.io/en/packages, or use the command: conan/vcpkg search.
 - Args:
@@ -36,75 +52,56 @@
 	=> These flags will have priority over the flags in the project_info.toml file.
 	- --vcpkg: flags => Vcpkg flags.
     => These flags will have priority over the flags in the project_info.toml file.
----
-# uninstall
-- Description => Uninstalls libraries.
+## uninstall
+- Description => Uninstalls one or more libraries.
 - Args: 
-	- name.. => Libraries names.
----
-# update
-- Description => Updates libraries.
+	- name.. => One or more libraries names.
+## update
+- Description => Updates one or more libraries.
 - Args: 
-	- name/version(conan required).. => Libraries names and versions.
----
-# add
+	- name/version(conan required).. => One or more libraries names and versions.
+## add
 - Description => Adds one or more source/header files, directories, modules, or libraries.
 - Args:
-	- name.., name/version(conan required):linking.. => Names for the type specified, or in the case of adding libraries names, version, and linking settings.
+	- name.. => One or more names for the type specified.
+	- name/version(conan required):options.. => One or more libraries names, versions, and linking/building options. (For libraries only)  
 - Flags:
 	- -t, --type: {s, h, dir, mod, lib} => Specifies a type to add.
 - Options:
-	- --linking: {static, shared/dynamic} = static => Specifies the way to link and build the libraries installed. 
-	- --to: path = "./" => Specifies a directory to add to. 
-	=> If the directory specified dosen't exist thin it will create it, and this flags does nothing for adding libraries.
+	- --linking:  => If it wasn't specified with the library name and version those linkage options will apply. (For libraries only)
+	- --to: path = "./" => Specifies a directory to add to (doesn't effect libraries). 
+	=> If the directory specified doesn't exist then ask for confirmation to create it.
 	- -f, --force => Add, or replace without asking for confirmation.
----
-# delete
+## delete
 - Description => Deletes one or more source/header files, directories, modules, or libraries.
-- Args:	
-	- name.. => Names for the type specified.
-- Flags:
+- Flags:	
+	- -n, --name: name.. => Names for the type specified.
 	- -t, --type: {s, h, dir, mod, lib} => Specifies a type to delete.
 - Options:
 	- --from: path = "./" => Specifies a directory to delete from. 
 	=> If the directory specified have anything inside it thin ask for confirmation to delete it.
 	- -f, --force => Delete without asking for confirmation.
----
-# set
-- Description => Sets a variable to some value.
-- Flags:
-	- -n, --name: {cmake flags, vcpkg flags, conan flags} => Variable name. 
-	cmake flags: {cmake_config, cmake_build, cmake_test}
-	conan flags: {conan_install, conan_common_options}
-	vcpkg flags: {vcpkg_install, vcpkg_common_options}
-	- --to: flags => New value.
----
-# init
-- Description => Initializes some optional features to an existing project.  
-- Options:
-	- --test: name/version(conan required) => Specifies a unit testing framework, adds tests, and enables testing.
-	- --git: repo url => Initializes git via: git init, or clones a repo if it's url is given.
-	- --conan: {txt, py} = txt => Add [[Conanfile]], or [[conanfile.py]] to install libraries via conan.
-	- --vcpkg: baseline => Add [[Vcpkg manifest]] to install libraries via vcpkg.
-	- --triplets: architecture.. system.. building options.., default or community triplets => Adds triplets directory, and the chosen triplets for vcpkg.
----
-# build 
+## build 
 - Description => Builds a target.
 - Long description => Builds a target, but if no input was given by default it will build the first target in the project_info.toml file.
-- Optional args:
+- Flags:
 	- -n, --name: target => App or library name. 
 	=> Write '.' to build all targets.
 - Options:
 	- --release => Builds in release mode. 
 	- --debug => Builds in debug mode.
-
-<hr>
-# run 
+## run 
 - Description => Builds the main app target, and then runs it.
 - Long description => Builds the main app target, and runs it, but if no input was given by default it will build, and run the first app target in the project_info.toml file.
-- Optional args:
+- Flags:
 	- -n, --name: target => App name. 
 - Options:
 	- --release => Runs in release mode.
 	- --debug => Runs in debug mode.
-	- -i, --input: args => Input for the app. 
+	- -i, --input: args => Input for the app.
+## topic
+-  Description => Explains common topics and ideas in gyst.
+- Args:
+	- topic => Topic name.
+- Options:
+	- -l, --list => Lists all the topics available.
