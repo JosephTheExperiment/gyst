@@ -6,30 +6,30 @@
 - [[Cmakelists_main]]
 - build
 ## Options
-- **Git**
+- Git:
 	- README.md
 	- .git  
 	- .gitignore => Inside it: {./build, CMakeUserPresets.json}
-- **Testing**
+- Testing:
 	- tests 
 		- [[Cmakelists_testing]]
 		- test.cpp
-- **Triplets**
+- Triplets:
 	- triplets
-- **Conan**
+- Conan:
 	- [[Conanfile]]
 	- build
 		- conan 
 ## Project types
-- **Include libraries**
+- Include libraries:
 	- include
 		- \<project name>
 			- \<project name>.h/hpp
-- **Apps**
+- Apps:
 	- src
 		- main.c/cpp
 		- [[Cmakelists_source]]
-- **Libraries**
+- Libraries:
 	- include
 		- \<project name>
 			- \<project name>.h/hpp
@@ -39,12 +39,12 @@
 ---
 # Project organizers
 ## Modules layout
- - **Apps and libraries**
+ - Apps and libraries:
 	- \<module name>	 
 		- \<module name>.h/hpp
 		- \<module name>.c/cpp
 		- [[Cmakelists_modules and directories]]
-- **Include libraries**
+- Include libraries:
 	- \<module name>	 
 		- \<module name>.h/hpp
 		- [[Cmakelists_modules and directories]]

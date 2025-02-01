@@ -40,14 +40,13 @@
 	- --git: repo URL => Initializes git via: git init, or clones a repo if it's URL is given.
 	- --conan: {txt, py} = txt => Add [[Conanfile]] to install libraries via conan.
 	- --vcpkg: baseline => Add [[Vcpkg manifest]] to install libraries via vcpkg.
-	- --triplets: architecture.. system.. building options.., default or community triplets => Adds triplets directory, and the chosen triplets for vcpkg.
 ## install
 - Description => Installs libraries via the package manager specified.  
 - Long description => Installs libraries via conan using names and versions(conan required) of libraries, and to search for libraries in conan visit conan center at: https://conan.io/center, and for vcpkg visit vcpkg packages at https://vcpkg.io/en/packages, or use the command: conan/vcpkg search.
 - Args:
 	- name/version(conan required):options.. => One or more libraries names, versions, and a conan profile or a vcpkg triplet.
 - Options:
-	- -op, --options: profile/triplet => If it wasn't specified with the library name and version this profile or triplet will apply. 
+	- -stg, --settings: profile/triplet => If it wasn't specified with the library name and version this profile or triplet will apply. 
 	- --conan: flags => Conan flags.
 	=> These flags will have priority over the flags in the project_info.toml file.
 	- --vcpkg: flags => Vcpkg flags.
@@ -68,8 +67,8 @@
 - Flags:
 	- -t, --type: {s, h, dir, mod, lib} => Specifies a type to add.
 - Options:
-	- -op, --options: profile/triplet => If it wasn't specified with the library name and version this profile or triplet will apply. (For libraries only)
-	- --to: path = "./" => Specifies a directory to add to (doesn't effect libraries). 
+	- -stg, --settings: profile/triplet => If it wasn't specified with the library name and version this profile or triplet will apply. (For libraries only)
+	- --to: path = "./" => Specifies a directory to add to. (Doesn't effect libraries)
 	=> If the directory specified doesn't exist then ask for confirmation to create it.
 	- -f, --force => Add, or replace without asking for confirmation.
 ## delete

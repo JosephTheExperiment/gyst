@@ -1,10 +1,11 @@
 # Work on
-1. Linking and building options
-2. Rewrite cmakelists and presets files. 
-3. Add [hunter](https://github.com/cpp-pm/hunter) as the third package manager. 
-4. Implement the cli.
-5. Github repo.
-6. Testing projects.
+1. Add and install. 
+2. Linking and building options.
+3. Rewrite cmakelists and presets files. 
+4. Add [hunter](https://github.com/cpp-pm/hunter) as the third package manager. 
+5. Implement the cli.
+6. Github repo.
+7. Testing projects.
 ---
 # Learn about
 - Environment variables.
