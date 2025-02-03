@@ -14,11 +14,8 @@ package_manager = "" # {conan, vcpkg, hunter}
 	}
 ]
 
-[dependencies]
-<library name> = "<library version>"
-
 [flags]
-cmake_config = "-B build --preset default"  
+cmake_config = "-B build --preset default --fresh"  
 cmake_build = "" 
 cmake_test = ""
 conan_install = "--output-folder=build/conan --build=missing"

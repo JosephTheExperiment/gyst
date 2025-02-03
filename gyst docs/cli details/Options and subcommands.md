@@ -15,7 +15,7 @@
 	- -G: build system => Build system generator for cmake; for help use: cmake --help. 
 		
 	- Optional features:
-		- --test: name/version(conan required) => Specifies a unit testing framework, adds tests, and enables testing.
+		- --test: name/version => Specifies a unit testing framework via name and version (conan required), adds tests, and enables testing.
 		- --git: repo URL => Initializes git via: git init, or clones a repo if it's URL is given.
 		- --conan: {txt, py} = txt => Adds [[Conanfile]] to install libraries via conan.
 		- --vcpkg: baseline => Adds [[Vcpkg manifest]] to install libraries via vcpkg.
@@ -29,24 +29,28 @@
 - Description => Sets a variable to some value.
 - Flags:
 	- -n, --name: {cmake flags, vcpkg flags, conan flags} => Variable name. 
-	cmake flags: {cmake_config, cmake_build, cmake_test}
+	=> cmake flags: {cmake_config, cmake_build, cmake_test}
 	conan flags: {conan_install, conan_common_options}
 	vcpkg flags: {vcpkg_install, vcpkg_common_options}
 	- --to: flags => New value.
 ## init
 - Description => Initializes some optional features to an existing project.  
 - Options:
-	- --test: name/version(conan required) => Specifies a unit testing framework, adds tests, and enables testing.
+	- --test: name/version => Specifies a unit testing framework via name and version (conan required), adds tests, and enables testing.
 	- --git: repo URL => Initializes git via: git init, or clones a repo if it's URL is given.
 	- --conan: {txt, py} = txt => Add [[Conanfile]] to install libraries via conan.
 	- --vcpkg: baseline => Add [[Vcpkg manifest]] to install libraries via vcpkg.
 ## install
 - Description => Installs libraries via the package manager specified.  
-- Long description => Installs libraries via conan using names and versions(conan required) of libraries, and to search for libraries in conan visit conan center at: https://conan.io/center, and for vcpkg visit vcpkg packages at https://vcpkg.io/en/packages, or use the command: conan/vcpkg search.
+- Long description => To search for libraries on conan visit conan center at: https://conan.io/center, and for vcpkg visit vcpkg packages at https://vcpkg.io/en/packages, or use the command: conan/vcpkg search.
 - Args:
-	- name/version(conan required):options.. => One or more libraries names, versions, and a conan profile or a vcpkg triplet.
+	- Vcpkg
+		- name\[port features]/version:triplet.. => One or more libraries names, port features, versions (not required), and triplet.
+	- Conan
+		- name/version.. => One or more libraries names, versions (required).
+	=> Write "." to install all the libraries added.
 - Options:
-	- -stg, --settings: profile/triplet => If it wasn't specified with the library name and version this profile or triplet will apply. 
+	- -stg, --settings: profile or triplet => If it wasn't specified with the library name and version this profile (for conan) or triplet (for vcpkg) will apply.
 	- --conan: flags => Conan flags.
 	=> These flags will have priority over the flags in the project_info.toml file.
 	- --vcpkg: flags => Vcpkg flags.
@@ -58,12 +62,16 @@
 ## update
 - Description => Updates one or more libraries.
 - Args: 
-	- name/version(conan required).. => One or more libraries names and versions.
+	- name/version.. => One or more libraries names and versions (required for conan).
 ## add
 - Description => Adds one or more source/header files, directories, modules, or libraries.
 - Args:
-	- name.. => One or more names for the type specified.
-	- name/version(conan required):options.. => One or more libraries names, versions, and a conan profile or a vcpkg triplet. (For libraries only)
+	- -n, --name: name.. => One or more names for the type specified.
+	- Libraries:
+		- Vcpkg:
+			- name\[port features]/version.. => One or more libraries names, port features, and versions (not required).
+		- Conan:
+			- name/version.. => One or more libraries names, versions (required).
 - Flags:
 	- -t, --type: {s, h, dir, mod, lib} => Specifies a type to add.
 - Options:
