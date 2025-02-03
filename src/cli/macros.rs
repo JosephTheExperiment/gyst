@@ -6,6 +6,27 @@ macro_rules! mod_all {
 }
 
 #[macro_export]
+macro_rules! pub_struct {
+    (
+        $(#[$struct_attr:meta])*
+        struct $name:ident {
+            $(
+                $(#[$field_attr:meta])*
+                $field:ident: $field_type:ty,
+            )*
+        }
+    ) => {
+        $(#[$struct_attr])*
+        pub struct $name {
+            $(
+                $(#[$field_attr])*
+                pub $field: $field_type,
+            )*
+        }
+    }
+}
+
+#[macro_export]
 macro_rules! subcommand {
     (
         $(#[$subcommand_args_attr:meta])* $subcommand:ident {
