@@ -42,15 +42,15 @@
 	- --vcpkg: baseline => Add [[Vcpkg manifest]] to install libraries via vcpkg.
 ## install
 - Description => Installs libraries via the package manager specified.  
-- Long description => To search for libraries on conan visit conan center at: https://conan.io/center, and for vcpkg visit vcpkg packages at https://vcpkg.io/en/packages, or use the command: conan/vcpkg search.
+- Long description => Installs libraries via the package manager specified, and to search for libraries on conan visit conan center at: https://conan.io/center, and for vcpkg visit vcpkg packages at https://vcpkg.io/en/packages, or use the subcommand search in your package manager.
 - Args:
 	- Vcpkg
 		- name\[port features]/version:triplet.. => One or more libraries names, port features, versions (not required), and triplet.
 	- Conan
-		- name/version.. => One or more libraries names, versions (required).
+		- name/version:options.. => One or more libraries names, versions (required).
 	=> Write "." to install all the libraries added.
 - Options:
-	- -stg, --settings: profile or triplet => If it wasn't specified with the library name and version this profile (for conan) or triplet (for vcpkg) will apply.
+	- -stg, --settings: profile or triplet => If it wasn't specified with the library name and version this profile (for conan) or triplet (for vcpkg) will apply. 
 	- --conan: flags => Conan flags.
 	=> These flags will have priority over the flags in the project_info.toml file.
 	- --vcpkg: flags => Vcpkg flags.
@@ -71,7 +71,7 @@
 		- Vcpkg:
 			- name\[port features]/version.. => One or more libraries names, port features, and versions (not required).
 		- Conan:
-			- name/version.. => One or more libraries names, versions (required).
+			- name/version:options.. => One or more libraries names, versions (required).
 - Flags:
 	- -t, --type: {s, h, dir, mod, lib} => Specifies a type to add.
 - Options:
@@ -88,16 +88,16 @@
 	- --from: path = "./" => Specifies a directory to delete from. 
 	=> If the directory specified have anything inside it thin ask for confirmation to delete it.
 	- -f, --force => Delete without asking for confirmation.
-## build 
+## build
 - Description => Builds a target.
 - Long description => Builds a target, but if no input was given by default it will build the first target in the project_info.toml file.
 - Flags:
-	- -n, --name: target => App or library name. 
+	- -n, --name: target.. => One or more app or library name. 
 	=> Write '.' to build all targets.
 - Options:
 	- --release => Builds in release mode. 
 	- --debug => Builds in debug mode.
-## run 
+## run
 - Description => Builds the main app target, and then runs it.
 - Long description => Builds the main app target, and runs it, but if no input was given by default it will build, and run the first app target in the project_info.toml file.
 - Flags:

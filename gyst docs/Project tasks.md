@@ -1,5 +1,5 @@
 # Work on
-1. Description and long descriptions.
+1. STOP THIS MADNISS by splitting the discerptions, args/flags, and options by knowing whish package manager is used and for any other option later.  
 2. Cmake files.
 3. Add [hunter](https://github.com/cpp-pm/hunter) as the third package manager. 
 4. Implement the cli.

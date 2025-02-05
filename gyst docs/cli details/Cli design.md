@@ -10,7 +10,7 @@
 1. What changed in the state of the project, **or** what error have occurred from other stages.  
 2. Suggesting what to do next. 
 ---
-# Notes for good design
+# Notes for design
 ## Displaying information 
 - Remember to NOT output too little to confuse, and NOT too much to overwhelm.
 - Use color when possible.
@@ -19,3 +19,5 @@
 - When giving errors they should have descriptions, and suggestions to solve the error.
 ## Working with the file system
 - Any created file, folder, or added data to a file should be checked if it already exists, and working with the consideration of the result.     
+## Getting around options 
+- Split discerptions, args/flags, and options by knowing which package manager is used and for any other option later
