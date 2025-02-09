@@ -1,10 +1,14 @@
 # Work on
-1. STOP THIS MADNISS by splitting the discerptions, args/flags, and options by knowing whish package manager is used and for any other option later.  
-2. Cmake files.
-3. Add [hunter](https://github.com/cpp-pm/hunter) as the third package manager. 
-4. Implement the cli.
-5. Github repo.
-6. Testing projects.
+1. Custom help massage, and macros for subcommands and help subcommand.
+	1. Subcommand's help massage design.
+	2. Structs for subcommands.
+	3. macros for writing subcommands.
+2. Rewriting of the [[Options and subcommands]] file.
+3. Cmake files.
+4. Add [hunter](https://github.com/cpp-pm/hunter) as the third package manager. 
+5. Implement the cli.
+6. Github repo.
+7. Testing projects.
 ---
 # Learn about
 - Environment variables.

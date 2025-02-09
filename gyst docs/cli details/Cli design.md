@@ -5,12 +5,38 @@
 3. Validating user input.
 4. Validating project state.
 ## 2. Runtime (1 part) 
-1. Run the subcommand, and Showing the inner working, but reverse any changes made before an error if it happened.
+1. Run the subcommand, showing it's inner workings, but reverse any changes made before if an error had happened.
 ## 3. Compilation (2 parts)
-1. What changed in the state of the project, **or** what error have occurred from other stages.  
-2. Suggesting what to do next. 
+2. What changed in the state of the project, **or** what error have occurred from other stages.  
+3. Suggesting what to do next. 
 ---
-# Notes for design
+# Help massage
+## Subcommands
+- ### Content
+	1. Name
+	2. Short and long description.
+	3. Usage.
+	4. Simple and advanced example.
+	5. Arguments and flags with short and long descriptions.
+	6. Related topics and subcommands with explanations.
+- ### Pattern
+```txt
+
+```
+## Help subcommand massage
+- ### Content
+	1. Name
+	2. Short and long description.
+	3. Usage.
+	4. Tutorial guide topic command: "gyst topic tutorial". 
+	5. Subcommands categorized according to their function.
+		1. Name and short description. 
+- ### Pattern
+```txt
+
+```
+---
+# Notes for subcommands design
 ## Displaying information 
 - Remember to NOT output too little to confuse, and NOT too much to overwhelm.
 - Use color when possible.
