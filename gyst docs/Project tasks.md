@@ -3,12 +3,14 @@
 	1. Subcommand's help massage design.
 	2. Structs for subcommands.
 	3. macros for writing subcommands.
-2. Rewriting of the [[Options and subcommands]] file.
-3. Cmake files.
-4. Add [hunter](https://github.com/cpp-pm/hunter) as the third package manager. 
-5. Implement the cli.
-6. Github repo.
-7. Testing projects.
+2. Write [[triplets_base]] for vcpkg.
+3. Start subcommand to initialize gyst. 
+4. Rewriting of the [[Options and subcommands]] file.
+5. Cmake files.
+6. Add [hunter](https://github.com/cpp-pm/hunter) as the third package manager. 
+7. Implement the cli.
+8. Github repo.
+9. Testing projects.
 ---
 # Learn about
 - Environment variables.

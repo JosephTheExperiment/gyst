@@ -13,23 +13,36 @@
 # Help massage
 ## Subcommands
 - ### Content
-	1. Name
-	2. Short and long description.
+	1. Short and detailed description.
+	2. Read more => Related topics and a URL for documentation.
 	3. Usage.
-	4. Simple and advanced example.
-	5. Arguments and flags with short and long descriptions.
+	4. Three examples => Different uses, or ranging form simple to advanced.
+	5. Arguments and flags => categorized according to their function.
 	6. Related topics and subcommands with explanations.
 - ### Pattern
 ```txt
+<short description>
 
+<detailed description>
+
+Read more: 
+	<documentation URL>
+	<topics>
+
+Usage: gyst <subcommand> <required arguments and flags> [OPTIONS]
+
+Examples:
+	<example 1>
+	<example 2>
+	<example 3>
+	
 ```
 ## Help subcommand massage
 - ### Content
-	1. Name
-	2. Short and long description.
-	3. Usage.
-	4. Tutorial guide topic command: "gyst topic tutorial". 
-	5. Subcommands categorized according to their function.
+	1. Name and short description.
+	2. Usage.
+	3. Tutorial guide topic command: "gyst topic tutorial". 
+	4. Subcommands categorized according to their function.
 		1. Name and short description. 
 - ### Pattern
 ```txt
