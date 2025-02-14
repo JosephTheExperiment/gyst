@@ -32,10 +32,13 @@ Read more:
 Usage: gyst <subcommand> <required arguments and flags> [OPTIONS]
 
 Examples:
-	<example 1>
-	<example 2>
-	<example 3>
-	
+	gyst <subcommand> <example arguments and flags>
+
+Arguments:
+argument <argument description>
+
+Options:
+-f, --flag <value> <flag description> (default: <default value>)
 ```
 ## Help subcommand massage
 - ### Content
