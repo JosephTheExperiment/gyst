@@ -1,8 +1,5 @@
 mod cli;
-mod cmake;
-mod gyst;
-use crate::cli::subcommands::Cli;
-use clap::Parser;
+use crate::cli::commands::Cli;
 
 fn main() {
     //let cli = Cli::parse();

@@ -1,3 +1,3 @@
-mod macros;
-mod_all!(architecture, styles, pub subcommands);
+mod architecture;
+mod_all!(pub commands);
 use crate::mod_all;

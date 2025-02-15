@@ -1,4 +1,7 @@
-use crate::cli::subcommands::Cli;
+mod macros;
+mod_all!(utils, cmake);
+use crate::mod_all;
+use crate::Cli;
 
 pub enum SubcommandErrors {
     NameCorrection,
