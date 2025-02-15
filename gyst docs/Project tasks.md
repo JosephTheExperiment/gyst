@@ -1,12 +1,11 @@
 # Work on
 1. Custom help massage, and macros for subcommands and help subcommand.
-	1. Subcommand's help massage design.
-	2. Structs for subcommands.
-	3. macros for writing subcommands.
+	1. Structs for subcommands.
+	2. macros for writing subcommands.
 2. Write [[triplets_base]] for vcpkg.
-3. Start subcommand to initialize gyst. 
-4. Rewriting of the [[Options and subcommands]] file.
-5. Cmake files.
+3. Rewriting of the [[Options and commands]] file.
+4. Start command to initialize gyst. 
+5. Fast check cmake files.
 6. Add [hunter](https://github.com/cpp-pm/hunter) as the third package manager. 
 7. Implement the cli.
 8. Github repo.
@@ -26,5 +25,3 @@
 - Machine friendly tool.
 - Package a library with: cpack, conan or vcpkg.
 - Fixing system and build issues.
- 
- 

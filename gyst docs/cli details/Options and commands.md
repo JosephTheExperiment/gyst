@@ -2,7 +2,7 @@
 - Options:
 	- --color: {auto, always, never} => Controls color usage in the cli.
 ---
-# Subcommands
+# Commands
 ## new
 - Description => Creates a new project, or adds a target to an existing project.
 - Flags:
