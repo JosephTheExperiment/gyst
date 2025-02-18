@@ -7,22 +7,22 @@
 ## 2. Runtime (1 part) 
 1. Run the command, showing it's logs, but reverse any changes made before runtime, if an error had occurred.
 ## 3. Compilation (2 parts)
-2. What changed in the state of the project, **or** what error have occurred from other stages.  
-3. Suggests for what to do next. 
+1. What changed in the state of the project, **or** what error have occurred from other stages.  
+2. Suggests for what to do next. 
 ---
 # Help massage headings
 ## Commands
-4. Short description with additional details.
-5. Usage: Required arguments and options.
-6. Examples: Different uses, or ranging form simple to advanced.
-7. Arguments: Categorized according to their alphabetical order.
-8. Read more: Related topics, and commands, and a URL for documentation.
+1. Short description with additional details.
+2. Usage: Required arguments and options.
+3. Examples: Different uses, or ranging form simple to advanced.
+4. Arguments: Categorized according to their alphabetical order.
+5. Read more: Related topics, and commands, and a URL for documentation.
 ## Help Command massage
-9. Name and short description.
-10. Tutorial guide: => gyst topic tutorial. 
-11. Usage: Options and command.
-12. Commands (categorized according to their function): Names and short descriptions.
-13. Read more: Important topics and a URL for documentation.
+1. Name and short description.
+2. Tutorial guide: => gyst topic tutorial. 
+3. Usage: Options and command.
+4. Commands (categorized according to their function): Names and short descriptions.
+5. Read more: Important topics and a URL for documentation.
 ---
 # Notes for commands design
 ## Displaying information 
