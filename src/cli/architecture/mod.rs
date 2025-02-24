@@ -1,8 +1,7 @@
 mod macros;
 mod_all!(utils, cmake);
-use std::io::Stderr;
 
-use crate::{Cli, mod_all};
+use crate::{mod_all, pub_struct, Cli};
 
 pub enum CommandErrors {
     NameCorrection,
@@ -22,29 +21,39 @@ pub trait Subcommand {
     fn compilation(&self, cli: Cli, errors: CommandErrors) -> Result<(), CommandErrors>;
 }
 
-struct CliData {
-    description: String,
-    command_data: CommandData
-}
+pub_struct!(
+    struct CliData {
+        description: String,
+        command_data: Vec<(String, CommandData)>,
+        read_more: String,
+    }
+);
 
-struct CommandData {
-    description: String,
-    detailed_description: String,
-    examples: Vec<String>,
-    required: Vec<Input>,
-    options: Vec<(String, Vec<Input>)>,
-    read_more: String
-}
+pub_struct!(
+    struct CommandData {
+        name: String,
+        description: String,
+        detailed_description: String,
+        examples: Vec<String>,
+        required: Vec<Input>,
+        options: Vec<(String, Vec<Input>)>,
+        read_more: String,
+    }
+);
 
 pub enum Input {
     Flag {
-        short: String,
+        short: Option<String>,
         long: String,
         value: String,
         description: String,
+        default_value: Option<String>,
+        possible_values: Option<Vec<String>>,
     },
     Arg {
         value: String,
         description: String,
-    }
+        default_value: Option<String>,
+        possible_values: Vec<String>,
+    },
 }

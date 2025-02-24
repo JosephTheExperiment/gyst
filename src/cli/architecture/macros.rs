@@ -30,21 +30,14 @@ macro_rules! pub_struct {
 macro_rules! subcommand {
     (
         $(#[$subcommand_args_attr:meta])* $subcommand:ident {
-            about => $about:expr;
-            long_about => $long_about:expr;
             $(
                 args { $(
-                    $([$($arg_attr:tt)*])? $arg:ident: $arg_type:ty => $arg_des:expr $(=> $arg_long_des:expr)?
-                ),* };
-            )?
-            $(
-                options { $(
-                    $([$($option_attr:tt)*])? $option:ident: $option_type:ty $(= $default:expr)? => $option_des:expr $(=> $option_long_des:expr)?
+                    $(#[$arg_attr:meta])* $arg:ident: $arg_type:ty $(= $default_arg:expr)?
                 ),* };
             )?
             $(
                 enums { $(
-                    $(#[$enum_attr:meta])* $enum:ident { $($variant:ident => $enum_des:expr),* }
+                    $(#[$enum_attr:meta])* $enum:ident { $($variant:ident),* }
                 ),* };
             )?
         }
@@ -54,32 +47,19 @@ macro_rules! subcommand {
                 #[derive(Clone, ValueEnum)]
                 #[clap(rename_all = "snake_case")]
                 $(#[$enum_attr])*
-                pub enum $enum { $(
-                    #[clap(help = $enum_des)] $variant
-                ),* }
+                pub enum $enum { $($variant),* }
             )*
         )?
 
         paste! {
             #[derive(Args)]
-            #[command(about = $about, long_about = format!("{}\n\n{}", $about, $long_about))]
             $(#[$subcommand_args_attr:meta])*
             pub struct [<$subcommand Args>] {
                 $(
                     $(
-                        $(#[arg(long_help = format!("{}\n\n{}", $arg_des, $arg_long_des))])?
-                        #[arg(help = $arg_des, required = true)]
-                        $(#[arg($($arg_attr)*)])?
+                        $(#[arg(default_value = $default_arg)])?
+                        $(#[$arg_attr])*
                         pub $arg: $arg_type,
-                    )*
-                )?
-                $(
-                    $(
-                        $(#[arg(long_help = format!("{}\n\n{}", $option_des, $option_long_des))])?
-                        $(#[arg(default_value_t = $default)])?
-                        #[arg(help = $option_des, required = false)]
-                        $(#[arg($($option_attr)*)])?
-                        pub $option: $option_type,
                     )*
                 )?
             }
@@ -96,17 +76,12 @@ macro_rules! cli {
             )?
             $(
                 args { $(
-                    $([$($arg_attr:tt)*])? $arg:ident: $arg_type:ty => $arg_des:expr $(=> $arg_long_des:expr)?
-                ),* };
-            )?
-            $(
-                options { $(
-                    $([$($option_attr:tt)*])? $option:ident: $option_type:ty $(= $default:expr)? => $option_des:expr $(=> $option_long_des:expr)?
+                    $(#[$arg_attr:meta])* $arg:ident: $arg_type:ty $(= $default_arg:expr)?
                 ),* };
             )?
             $(
                 enums { $(
-                    $(#[$enum_attr:meta])* $enum:ident { $($variant:ident => $enum_des:expr),* }
+                    $(#[$enum_attr:meta])* $enum:ident { $($variant:ident),* }
                 ),* };
             )?
         }
@@ -126,9 +101,7 @@ macro_rules! cli {
                 #[derive(Clone, ValueEnum)]
                 #[clap(rename_all = "snake_case")]
                 $(#[$enum_attr])*
-                pub enum $enum { $(
-                    #[help = $enum_des] $variant
-                ),* }
+                pub enum $enum { $($variant),* }
             )*
         )?
 
@@ -140,19 +113,9 @@ macro_rules! cli {
             )?
             $(
                 $(
-                    $(#[arg(long_help = format!("{}\n\n{}", $arg_des, $arg_long_des))])?
-                    #[arg(help = $arg_des, required = true)]
-                    $(#[arg($($arg_attr)*)])?
+                    $(#[arg(default_value = $default_arg)])?
+                    $(#[$arg_attr:meta])*
                     pub $arg: $arg_type,
-                )*
-            )?
-            $(
-                $(
-                    $(#[arg(long_help = format!("{}\n\n{}", $option_des, $option_long_des))])?
-                    $(#[arg(default_value_t = $default)])?
-                    #[arg(help = $option_des, required = false)]
-                    $(#[arg($($option_attr)*)])?
-                    pub $option: $option_type,
                 )*
             )?
         }
