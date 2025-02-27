@@ -1,4 +1,4 @@
-mod_all!();
+mod_all!(help);
 use crate::{cli, mod_all};
 use clap::Parser;
 
