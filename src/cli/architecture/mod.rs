@@ -22,9 +22,16 @@ pub trait Subcommand {
 }
 
 pub_struct!(
+    struct header_values<T> {
+        header: String,
+        values: Vec<T>,
+    }
+);
+
+pub_struct!(
     struct CliData {
         description: String,
-        command_data: Vec<(String, CommandData)>,
+        command_data: Vec<CommandData>,
         read_more: String,
     }
 );
@@ -36,8 +43,26 @@ pub_struct!(
         detailed_description: String,
         examples: Vec<String>,
         required: Vec<Input>,
-        options: Vec<(String, Vec<Input>)>,
-        read_more: String,
+        options: Vec<header_values<Input>>,
+        read_more: Vec<String>,
+    }
+);
+
+pub_struct!(
+    struct CommandDataOption {
+        examples: Option<Vec<String>>,
+        required: Option<Vec<Input>>,
+        options: Option<Vec<header_values<Input>>>,
+        read_more: Option<Vec<String>>,
+    }
+);
+
+pub_struct!(
+    struct CommandOptions {
+        vcpkg: Option<CommandDataOption>,
+        conan: Option<CommandDataOption>,
+        hunter: Option<CommandDataOption>,
+        github: Option<CommandDataOption>,
     }
 );
 

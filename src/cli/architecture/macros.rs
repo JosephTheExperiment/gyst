@@ -9,7 +9,7 @@ macro_rules! mod_all {
 macro_rules! pub_struct {
     (
         $(#[$struct_attr:meta])*
-        struct $name:ident {
+        struct $name:ident$(<$T:ident>)? {
             $(
                 $(#[$field_attr:meta])*
                 $field:ident: $field_type:ty,
@@ -17,7 +17,7 @@ macro_rules! pub_struct {
         }
     ) => {
         $(#[$struct_attr])*
-        pub struct $name {
+        pub struct $name$(<$T>)? {
             $(
                 $(#[$field_attr])*
                 pub $field: $field_type,
