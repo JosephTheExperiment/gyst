@@ -22,7 +22,7 @@ pub trait Subcommand {
 }
 
 pub_struct!(
-    struct header_values<T> {
+    struct header<T> {
         header: String,
         values: Vec<T>,
     }
@@ -43,7 +43,7 @@ pub_struct!(
         detailed_description: String,
         examples: Vec<String>,
         required: Vec<Input>,
-        options: Vec<header_values<Input>>,
+        options: Vec<header<Input>>,
         read_more: Vec<String>,
     }
 );
@@ -52,7 +52,7 @@ pub_struct!(
     struct CommandDataOption {
         examples: Option<Vec<String>>,
         required: Option<Vec<Input>>,
-        options: Option<Vec<header_values<Input>>>,
+        options: Option<Vec<header<Input>>>,
         read_more: Option<Vec<String>>,
     }
 );
