@@ -1,5 +1,6 @@
-mod cli;
-use crate::cli::commands::Cli;
+mod architecture;
+mod commands;
+use crate::commands::Cli;
 
 fn main() {
     //let cli = Cli::parse();

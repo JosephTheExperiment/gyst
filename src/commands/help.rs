@@ -1,4 +1,4 @@
-use crate::{cli::architecture::{CommandData, StylizedStrings}, pub_struct};
+use crate::{architecture::{CommandData, StylizedStrings}, pub_struct};
 use crossterm::{
     execute,
     style::{Attribute, ContentStyle, Print, ResetColor, SetAttribute, SetStyle},
