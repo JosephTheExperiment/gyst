@@ -1,42 +1,35 @@
-use crate::{
-    cli::architecture::{CommandData, CommandOptions},
-    pub_struct,
-};
-use std::io::{stdout, Write};
+use crate::{cli::architecture::{CommandData, StylizedStrings}, pub_struct};
 use crossterm::{
     execute,
-    style::{Color, Print, ResetColor, SetBackgroundColor, SetForegroundColor},
+    style::{Attribute, ContentStyle, Print, ResetColor, SetAttribute, SetStyle},
 };
+use std::io;
 
 pub_struct!(
-    struct HelpStyle {
-        
+    struct CommandHelpStyle {
+        header: ContentStyle,
+        list_points: ContentStyle,
+        usage: ContentStyle,
+        read_more: ContentStyle,
     }
 );
 
-macro_rules! combine_command_data {
-    ( $($options:ident),* ) => {
-        fn combine_command_data(command: CommandData, options: CommandOptions) -> CommandData {
-            let mut command: CommandData = command;
+pub fn stylized_printing(string: StylizedStrings) -> std::io::Result<()> {
+    for substring in string {
+        execute!(
+            io::stdout(),
+            SetStyle(substring.0),
+            Print(substring.1),
+            SetAttribute(Attribute::Reset),
+            ResetColor
+        )?
+    }
 
-            $(
-                if let Some(x) = options.$options {
-                    if let Some(x) = x.examples { command.examples.extend(x) }
-                    if let Some(x) = x.required { command.required = x }
-                    if let Some(x) = x.options { command.options = x }
-                    if let Some(x) = x.read_more { command.read_more.extend(x) }
-                }
-            )*
-
-            return command;
-        }
-    };
+    Ok(())
 }
 
-combine_command_data!(vcpkg, conan, hunter, github);
+pub fn command_help(command: CommandData, style: CommandHelpStyle) -> std::io::Result<()> {
 
-pub fn command_help(command: CommandData, style: HelpStyle) -> std::io::Result<()> {
-    
 
     Ok(())
 }

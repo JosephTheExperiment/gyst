@@ -9,16 +9,16 @@ use std::{
 
 pub_struct!(
     struct TextFile {
-        data: String,
         name: String,
+        data: String,
     }
 );
 
 pub_struct!(
     struct Directory {
+        name: String,
         files: Vec<TextFile>,
         directories: Vec<Directory>,
-        name: String,
     }
 );
 
@@ -26,7 +26,7 @@ pub fn build_directory(directory: Directory, path: Option<PathBuf>) -> std::io::
     let mut path: PathBuf = path.unwrap_or(env::current_dir()?);
     path.push(directory.name);
     create_dir_all(path.as_path())?;
-    
+
     for file in directory.files {
         let mut file_handel: File = File::create(format!("{}/{}", path.display(), file.name))?;
         file_handel.write_all(file.data.as_bytes())?;
@@ -41,14 +41,8 @@ pub fn build_directory(directory: Directory, path: Option<PathBuf>) -> std::io::
 
 pub fn run_command(args: Vec<&str>) -> std::io::Result<Output> {
     if std::env::consts::OS == "windows" {
-        return Command::new("cmd")
-            .arg("/C")
-            .args(args)
-            .output();
+        return Command::new("cmd").arg("/C").args(args).output();
     } else {
-        return Command::new("sh")
-            .arg("-c")
-            .args(args)
-            .output();
+        return Command::new("sh").arg("-c").args(args).output();
     }
 }

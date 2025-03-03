@@ -1,16 +1,24 @@
 mod macros;
 mod_all!(utils, cmake);
-
+use crossterm::style::ContentStyle;
 use crate::{mod_all, pub_struct, Cli};
 
 pub enum CommandErrors {
-    NameCorrection,
-    InputPrompting,
-    ValidateInput,
-    ValidateState,
-    Runtime,
+    NameCorrection(ErrorMassage),
+    InputPrompting(ErrorMassage),
+    ValidateInput(ErrorMassage),
+    ValidateState(ErrorMassage),
+    Runtime(ErrorMassage),
     None,
 }
+
+pub_struct!(
+    struct ErrorMassage {
+        error: String,
+        massage: String,
+        suggestions: Vec<String>,
+    }
+);
 
 pub trait Subcommand {
     fn name_correction(&self, cli: &Cli) -> Result<(), CommandErrors>;
@@ -21,48 +29,52 @@ pub trait Subcommand {
     fn compilation(&self, cli: Cli, errors: CommandErrors) -> Result<(), CommandErrors>;
 }
 
+pub struct StylizedString(pub ContentStyle, pub String);
+pub type StylizedStrings = Vec<StylizedString>;
+
 pub_struct!(
-    struct header<T> {
-        header: String,
+    struct Header<T> {
+        header: Option<String>,
         values: Vec<T>,
     }
 );
 
 pub_struct!(
     struct CliData {
-        description: String,
+        description: StylizedStrings,
         command_data: Vec<CommandData>,
-        read_more: String,
+        read_more: Vec<StylizedStrings>,
     }
 );
 
 pub_struct!(
     struct CommandData {
-        name: String,
-        description: String,
-        detailed_description: String,
+        name: StylizedString,
+        description: StylizedStrings,
+        detailed_description: StylizedStrings,
         examples: Vec<String>,
-        required: Vec<Input>,
-        options: Vec<header<Input>>,
-        read_more: Vec<String>,
+        required: Vec<Header<Input>>,
+        options: Vec<Header<Input>>,
+        read_more: Vec<StylizedStrings>,
+        data_options: Option<CommandDataOptions>,
     }
 );
 
 pub_struct!(
-    struct CommandDataOption {
+    struct CommandDataOptions {
         examples: Option<Vec<String>>,
         required: Option<Vec<Input>>,
-        options: Option<Vec<header<Input>>>,
-        read_more: Option<Vec<String>>,
+        options: Option<Vec<Header<Input>>>,
+        read_more: Option<Vec<StylizedStrings>>,
     }
 );
 
 pub_struct!(
     struct CommandOptions {
-        vcpkg: Option<CommandDataOption>,
-        conan: Option<CommandDataOption>,
-        hunter: Option<CommandDataOption>,
-        github: Option<CommandDataOption>,
+        vcpkg: Option<CommandDataOptions>,
+        conan: Option<CommandDataOptions>,
+        hunter: Option<CommandDataOptions>,
+        github: Option<CommandDataOptions>,
     }
 );
 
