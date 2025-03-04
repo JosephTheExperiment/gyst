@@ -1,6 +1,7 @@
 # Work on
 1. Custom help massage, and macros for commands and help command.
 	1. Help massage generator for commands. 
+	2. Help massage generator for cli.
 2. Write [[triplets_base]] for vcpkg.
 3. Rewriting of the [[Options and commands]] file.
 4. Start command to initialize gyst. 

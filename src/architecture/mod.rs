@@ -1,7 +1,7 @@
 mod macros;
 mod_all!(utils, cmake);
-use crossterm::style::ContentStyle;
 use crate::{mod_all, pub_struct, Cli};
+use crossterm::style::ContentStyle;
 
 pub enum CommandErrors {
     NameCorrection(ErrorMassage),
@@ -20,7 +20,7 @@ pub_struct!(
     }
 );
 
-pub trait Subcommand {
+pub trait Command {
     fn name_correction(&self, cli: &Cli) -> Result<(), CommandErrors>;
     fn input_prompting(&self, cli: &Cli) -> Result<(), CommandErrors>;
     fn validate_input(&self, cli: &Cli) -> Result<(), CommandErrors>;

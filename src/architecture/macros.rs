@@ -5,6 +5,36 @@ macro_rules! mod_all {
     };
 }
 
+// Stylized string extended
+#[macro_export]
+macro_rules! SSE {
+    (
+        ($fg:ident, bg:ident, $ul:ident, $($attr:ident),*)$string:literal
+    ) => {
+        {
+            StylizedString(
+                ContentStyle {
+                    foreground_color: $fg,
+                    background_color: $bg,
+                    underline_color: $ul,
+                    attributes: Attributes$(.set(Attribute::$attr))*
+                },
+                String::from($string)
+            )
+        }
+    };
+}
+
+// Stylized string
+#[macro_export]
+macro_rules! SS {
+    ( ($fg:ident, bg:ident, $ul:ident, $($attr:ident),*)$string:literal ) => {
+        SSE!((Some(Color::$fg), Some(Color::$bg), Some(Color::$ul), $($attr),*)$string)
+    };
+    ( ($fg:ident, bg:ident)$string:literal ) => { SSE!((Some(Color::$fg), Some(Color::$bg), None,)$string) };
+    ( ($fg:ident)$string:literal ) => { SSE!((Some(Color::$fg), None, None,)$string) };
+}
+
 #[macro_export]
 macro_rules! pub_struct {
     (

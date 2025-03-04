@@ -38,11 +38,3 @@ pub fn build_directory(directory: Directory, path: Option<PathBuf>) -> std::io::
 
     Ok(())
 }
-
-pub fn run_command(args: Vec<&str>) -> std::io::Result<Output> {
-    if std::env::consts::OS == "windows" {
-        return Command::new("cmd").arg("/C").args(args).output();
-    } else {
-        return Command::new("sh").arg("-c").args(args).output();
-    }
-}
