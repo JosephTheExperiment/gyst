@@ -32,29 +32,6 @@ pub trait Command {
 pub struct StylizedString(pub ContentStyle, pub String);
 pub type StylizedStrings = Vec<StylizedString>;
 
-pub fn build_stylized_string(
-    foreground: Option<Color>,
-    background: Option<Color>,
-    underline: Option<Color>,
-    attributes: Vec<Attribute>,
-    string: String,
-) -> StylizedString {
-    let mut attr = Attributes::none();
-    for x in attributes {
-        attr.set(x);
-    }
-
-    StylizedString(
-        ContentStyle {
-            foreground_color: foreground,
-            background_color: background,
-            underline_color: underline,
-            attributes: attr,
-        },
-        string,
-    )
-}
-
 pub_struct!(
     struct Header<T> {
         header: Option<String>,

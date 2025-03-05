@@ -8,18 +8,22 @@ macro_rules! mod_all {
 // Stylized string
 #[macro_export]
 macro_rules! SS {
-    ($fg:ident, $bg:ident, $ul:ident, $($attr:ident),* /$str:literal) => {
-        { build_stylized_string(Some(Color::$fg), Some(Color::$bg), Some(Color::$ul), vec![$(Attribute::$attr:ident),*]), String::from($str) }
+    ($(fg:$fg:ident,)? $(bg:$bg:ident,)? $(ul:$ul:ident,)? $(attr:$($attr:ident),*)? => $str:expr) => {
+        {    
+            let mut content_style = ContentStyle::new();
+            $(content_style.foreground_color = Some(Color::$fg);)?
+            $(content_style.background_color = Some(Color::$bg);)?
+            $(content_style.underline_color = Some(Color::$ul);)?
+            $($(content_style.attributes.set(Attribute::$attr);)*)?
+            StylizedString(content_style, String::from($str)) 
+        }
     };
-    ($fg:ident, $bg:ident /$str:literal) => {
-        { build_stylized_string(Some(Color::$fg), Some(Color::$bg), None, vec![], String::from($str)) }
+    
+    ($fg:ident => $str:expr) => { SS!(fg:$fg, => $str) };
+    ($fg:ident, $bg:ident => $str:expr) => { SS!(fg:$fg, bg:$bg, => $str) };
+    ($fg:ident, $bg:ident, $ul:ident, $($attr:ident),* => $str:expr) => {
+        SS!(fg:$fg, bg:$bg, ul:$ul, attr:$($attr),* => $str)
     };
-    ($fg:ident /$str:literal) => {
-        { build_stylized_string(Some(Color::$fg), None, None, vec![], String::from($str)) }
-    };
-    (attr: $ul:ident, $($attr:ident),* /$str:literal) => {
-        { build_stylized_string(None, None, Some(Color::$ul), vec![$(Attribute::$attr:ident),*]), String::from($str) }
-    }
 }
 
 #[macro_export]
