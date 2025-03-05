@@ -1,4 +1,7 @@
-use crate::{architecture::{CommandData, StylizedStrings}, pub_struct};
+use crate::{
+    architecture::{CommandData, StylizedString},
+    pub_struct,
+};
 use crossterm::{
     execute,
     style::{Attribute, ContentStyle, Print, ResetColor, SetAttribute, SetStyle},
@@ -14,22 +17,18 @@ pub_struct!(
     }
 );
 
-pub fn stylized_printing(string: StylizedStrings) -> std::io::Result<()> {
-    for substring in string {
-        execute!(
-            io::stdout(),
-            SetStyle(substring.0),
-            Print(substring.1),
-            SetAttribute(Attribute::Reset),
-            ResetColor
-        )?
-    }
+pub fn stylized_printing(string: StylizedString) -> std::io::Result<()> {
+    execute!(
+        io::stdout(),
+        SetStyle(string.0),
+        Print(string.1),
+        SetAttribute(Attribute::Reset),
+        ResetColor
+    )?;
 
     Ok(())
 }
 
 pub fn command_help(command: CommandData, style: CommandHelpStyle) -> std::io::Result<()> {
-
-
     Ok(())
 }

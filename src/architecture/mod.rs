@@ -1,7 +1,7 @@
 mod macros;
 mod_all!(utils, cmake);
 use crate::{mod_all, pub_struct, Cli};
-use crossterm::style::ContentStyle;
+use crossterm::style::{Attribute, Attributes, Color, ContentStyle};
 
 pub enum CommandErrors {
     NameCorrection(ErrorMassage),
@@ -31,6 +31,29 @@ pub trait Command {
 
 pub struct StylizedString(pub ContentStyle, pub String);
 pub type StylizedStrings = Vec<StylizedString>;
+
+pub fn build_stylized_string(
+    foreground: Option<Color>,
+    background: Option<Color>,
+    underline: Option<Color>,
+    attributes: Vec<Attribute>,
+    string: String,
+) -> StylizedString {
+    let mut attr = Attributes::none();
+    for x in attributes {
+        attr.set(x);
+    }
+
+    StylizedString(
+        ContentStyle {
+            foreground_color: foreground,
+            background_color: background,
+            underline_color: underline,
+            attributes: attr,
+        },
+        string,
+    )
+}
 
 pub_struct!(
     struct Header<T> {

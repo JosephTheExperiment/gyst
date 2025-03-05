@@ -1,11 +1,6 @@
 use crate::pub_struct;
 use std::fs::{create_dir_all, File};
-use std::{
-    env,
-    io::Write,
-    path::PathBuf,
-    process::{Command, Output},
-};
+use std::{env, io::Write, path::PathBuf};
 
 pub_struct!(
     struct TextFile {

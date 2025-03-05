@@ -5,34 +5,21 @@ macro_rules! mod_all {
     };
 }
 
-// Stylized string extended
-#[macro_export]
-macro_rules! SSE {
-    (
-        ($fg:ident, bg:ident, $ul:ident, $($attr:ident),*)$string:literal
-    ) => {
-        {
-            StylizedString(
-                ContentStyle {
-                    foreground_color: $fg,
-                    background_color: $bg,
-                    underline_color: $ul,
-                    attributes: Attributes$(.set(Attribute::$attr))*
-                },
-                String::from($string)
-            )
-        }
-    };
-}
-
 // Stylized string
 #[macro_export]
 macro_rules! SS {
-    ( ($fg:ident, bg:ident, $ul:ident, $($attr:ident),*)$string:literal ) => {
-        SSE!((Some(Color::$fg), Some(Color::$bg), Some(Color::$ul), $($attr),*)$string)
+    ($fg:ident, $bg:ident, $ul:ident, $($attr:ident),* /$str:literal) => {
+        { build_stylized_string(Some(Color::$fg), Some(Color::$bg), Some(Color::$ul), vec![$(Attribute::$attr:ident),*]), String::from($str) }
     };
-    ( ($fg:ident, bg:ident)$string:literal ) => { SSE!((Some(Color::$fg), Some(Color::$bg), None,)$string) };
-    ( ($fg:ident)$string:literal ) => { SSE!((Some(Color::$fg), None, None,)$string) };
+    ($fg:ident, $bg:ident /$str:literal) => {
+        { build_stylized_string(Some(Color::$fg), Some(Color::$bg), None, vec![], String::from($str)) }
+    };
+    ($fg:ident /$str:literal) => {
+        { build_stylized_string(Some(Color::$fg), None, None, vec![], String::from($str)) }
+    };
+    (attr: $ul:ident, $($attr:ident),* /$str:literal) => {
+        { build_stylized_string(None, None, Some(Color::$ul), vec![$(Attribute::$attr:ident),*]), String::from($str) }
+    }
 }
 
 #[macro_export]
