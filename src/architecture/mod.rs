@@ -1,7 +1,7 @@
 mod macros;
 mod_all!(utils, cmake);
 use crate::{mod_all, pub_struct, Cli};
-use crossterm::style::{Attribute, Attributes, Color, ContentStyle};
+use crossterm::style::ContentStyle;
 
 pub enum CommandErrors {
     NameCorrection(ErrorMassage),
@@ -49,20 +49,20 @@ pub_struct!(
 
 pub_struct!(
     struct CommandData {
-        name: StylizedString,
+        name: String,
         description: StylizedStrings,
         detailed_description: StylizedStrings,
-        examples: Vec<String>,
-        required: Vec<Header<Input>>,
+        examples: Vec<StylizedStrings>,
+        arguments: Vec<Input>,
         options: Vec<Header<Input>>,
         read_more: Vec<StylizedStrings>,
-        data_options: Option<CommandDataOptions>,
+        data_options: Option<CommandOptions>,
     }
 );
 
 pub_struct!(
     struct CommandDataOptions {
-        examples: Option<Vec<String>>,
+        examples: Option<Vec<StylizedStrings>>,
         required: Option<Vec<Input>>,
         options: Option<Vec<Header<Input>>>,
         read_more: Option<Vec<StylizedStrings>>,

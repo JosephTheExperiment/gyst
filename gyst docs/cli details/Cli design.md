@@ -14,14 +14,15 @@
 ## Commands
 1. Short description with additional details.
 2. Usage: Required arguments and options.
-3. Examples: Different uses, or ranging form simple to advanced.
-4. Arguments: Categorized according to their alphabetical order.
-5. Read more: Related topics, and commands, and a URL for documentation.
+3. Examples: For different uses, or ranging from simple to advanced.
+4. Arguments: Required arguments.
+5. Options: Categorized according to their alphabetical order.
+6. Read more: Related topics, commands, and a URL for documentation.
 ## Help Command massage
 1. Name and short description.
-2. Tutorial guide: => gyst topic tutorial. 
+2. Tutorial guide: Gyst topic tutorial. 
 3. Usage: Options and command.
-4. Commands (categorized according to their function): Names and short descriptions.
+4. Commands: Categorized according to their function.
 5. Read more: Important topics and a URL for documentation.
 ---
 # Notes for commands design

@@ -3,8 +3,8 @@
 	1. Help massage generator for commands. 
 	2. Help massage generator for cli.
 2. Write [[triplets_base]] for vcpkg.
-3. Rewriting of the [[Options and commands]] file.
-4. Start command to initialize gyst. 
+3. Editing of the [[Options and commands]] file.
+4. Start command to initialize gyst.
 5. Fast check on cmake files.
 6. Add [hunter](https://github.com/cpp-pm/hunter) as the third package manager. 
 7. Implement the cli.
