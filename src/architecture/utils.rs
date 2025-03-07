@@ -2,20 +2,20 @@ use crate::pub_struct;
 use std::fs::{create_dir_all, File};
 use std::{env, io::Write, path::PathBuf};
 
-pub_struct!(
+pub_struct!{
     struct TextFile {
         name: String,
-        data: String,
+        data: String
     }
-);
+}
 
-pub_struct!(
+pub_struct!{
     struct Directory {
         name: String,
         files: Vec<TextFile>,
-        directories: Vec<Directory>,
+        directories: Vec<Directory>
     }
-);
+}
 
 pub fn build_directory(directory: Directory, path: Option<PathBuf>) -> std::io::Result<()> {
     let mut path: PathBuf = path.unwrap_or(env::current_dir()?);

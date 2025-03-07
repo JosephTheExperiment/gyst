@@ -14,7 +14,7 @@
 ## Commands
 1. Short description with additional details.
 2. Usage: Required arguments and options.
-3. Examples: For different uses, or ranging from simple to advanced.
+3. Examples: For different uses, or ranging from simple to complicated.
 4. Arguments: Required arguments.
 5. Options: Categorized according to their alphabetical order.
 6. Read more: Related topics, commands, and a URL for documentation.

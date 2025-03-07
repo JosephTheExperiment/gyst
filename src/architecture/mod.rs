@@ -1,7 +1,7 @@
 mod macros;
 mod_all!(utils, cmake);
 use crate::{mod_all, pub_struct, Cli};
-use crossterm::style::ContentStyle;
+use crate::printing::StylizedStrings;
 
 pub enum CommandErrors {
     NameCorrection(ErrorMassage),
@@ -12,13 +12,13 @@ pub enum CommandErrors {
     None,
 }
 
-pub_struct!(
+pub_struct!{
     struct ErrorMassage {
         error: String,
         massage: String,
-        suggestions: Vec<String>,
+        suggestions: Vec<String>
     }
-);
+}
 
 pub trait Command {
     fn name_correction(&self, cli: &Cli) -> Result<(), CommandErrors>;
@@ -29,25 +29,22 @@ pub trait Command {
     fn compilation(&self, cli: Cli, errors: CommandErrors) -> Result<(), CommandErrors>;
 }
 
-pub struct StylizedString(pub ContentStyle, pub String);
-pub type StylizedStrings = Vec<StylizedString>;
-
-pub_struct!(
+pub_struct!{
     struct Header<T> {
         header: Option<String>,
-        values: Vec<T>,
+        values: Vec<T>
     }
-);
+}
 
-pub_struct!(
+pub_struct!{
     struct CliData {
         description: StylizedStrings,
         command_data: Vec<CommandData>,
-        read_more: Vec<StylizedStrings>,
+        read_more: Vec<StylizedStrings>
     }
-);
+}
 
-pub_struct!(
+pub_struct!{
     struct CommandData {
         name: String,
         description: StylizedStrings,
@@ -56,27 +53,27 @@ pub_struct!(
         arguments: Vec<Input>,
         options: Vec<Header<Input>>,
         read_more: Vec<StylizedStrings>,
-        data_options: Option<CommandOptions>,
+        data_options: Option<CommandOptions>
     }
-);
+}
 
-pub_struct!(
+pub_struct!{
     struct CommandDataOptions {
         examples: Option<Vec<StylizedStrings>>,
         required: Option<Vec<Input>>,
         options: Option<Vec<Header<Input>>>,
-        read_more: Option<Vec<StylizedStrings>>,
+        read_more: Option<Vec<StylizedStrings>>
     }
-);
+}
 
-pub_struct!(
+pub_struct!{
     struct CommandOptions {
         vcpkg: Option<CommandDataOptions>,
         conan: Option<CommandDataOptions>,
         hunter: Option<CommandDataOptions>,
-        github: Option<CommandDataOptions>,
+        github: Option<CommandDataOptions>
     }
-);
+}
 
 pub enum Input {
     Flag {
@@ -85,12 +82,12 @@ pub enum Input {
         value: String,
         description: String,
         default_value: Option<String>,
-        possible_values: Option<Vec<String>>,
+        possible_values: Option<Vec<String>>
     },
     Arg {
         value: String,
         description: String,
         default_value: Option<String>,
-        possible_values: Vec<String>,
+        possible_values: Vec<String>
     },
 }
