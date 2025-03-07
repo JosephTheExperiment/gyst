@@ -34,7 +34,7 @@ macro_rules! pub_struct {
             $(
                 $(#[$field_attr:meta])*
                 $field:ident: $field_type:ty
-            ),*$(,)?
+            ),*
         }
     } => {
         $(#[$struct_attr])*

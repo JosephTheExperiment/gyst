@@ -1,11 +1,11 @@
+use crate::printing::{stylized_print, stylized_prints, StylizedString};
 use crate::{
     architecture::{CommandData, Input},
     pub_struct,
 };
-use crate::printing::{StylizedString, stylized_print, stylized_prints};
 use crossterm::style::ContentStyle;
 
-pub_struct!{
+pub_struct! {
     struct CommandHelpStyle {
         header: ContentStyle,
         subheader: ContentStyle,
@@ -13,23 +13,33 @@ pub_struct!{
     }
 }
 
-macro_rules! new_section {
-    ($header:literal => $($($line:tt)*),*) => {
-        
+macro_rules! header {
+    ($header: literal, $style:expr) => {
+        stylized_print(StylizedString($style, String::from($header) + ": "))?;
     };
+}
+
+fn new_subheader(white_spaces: u8) {
+    print!("\n");
+    for _ in 0..white_spaces {
+        print!(" ")
+    }
+}
+
+fn empty_line() {
+    print!("\n\n");
 }
 
 pub fn command_help(command: CommandData, style: CommandHelpStyle) -> std::io::Result<()> {
     // Short description with additional details:
     stylized_prints(command.description)?;
-    print!("\n\n");
+    empty_line();
     stylized_prints(command.detailed_description)?;
-
-    print!("\n\n");
+    empty_line();
 
     // Usage:
+    header!("Usage", style.header);
     stylized_prints(vec![
-        StylizedString(style.header, String::from("Usage: ")),
         StylizedString(style.subheader, format!("gyst {} ", command.name)),
         StylizedString(style.contrast, String::from("[OPTIONS] ")),
     ])?;
@@ -42,17 +52,15 @@ pub fn command_help(command: CommandData, style: CommandHelpStyle) -> std::io::R
             _ => (),
         }
     }
-
-    print!("\n\n");
+    empty_line();
 
     // Examples:
-    stylized_print(StylizedString(style.header, String::from("Examples:\n")))?;
+    header!("Examples", style.header);
     for example in command.examples {
+        new_subheader(2);
         stylized_prints(example)?;
-        print!("\n");
-    } 
-
-    print!("\n\n");
+    }
+    empty_line();
 
     
 
