@@ -20,8 +20,8 @@
 6. Read more: Related topics, commands, and a URL for documentation.
 ## Help Command massage
 1. Name and short description.
-2. Tutorial guide: Gyst topic tutorial. 
-3. Usage: Options and command.
+2. Usage: Options and command.
+3. Tutorial guide: Gyst topic tutorial.
 4. Commands: Categorized according to their function.
 5. Read more: Important topics and a URL for documentation.
 ---

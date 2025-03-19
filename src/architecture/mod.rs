@@ -87,7 +87,6 @@ pub enum Input {
     Arg {
         value: String,
         description: String,
-        default_value: Option<String>,
-        possible_values: Vec<String>
+        possible_values: Option<Vec<String>>
     },
 }

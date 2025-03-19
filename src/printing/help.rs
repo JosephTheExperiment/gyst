@@ -1,50 +1,35 @@
-use crate::printing::{stylized_print, stylized_prints, StylizedString};
+use crate::printing::{empty_line, new_subheader, stylized_print, stylized_prints, StylizedString};
+use crate::{header, SS};
 use crate::{
     architecture::{CommandData, Input},
     pub_struct,
 };
 use crossterm::style::ContentStyle;
+use super::{HelpStyle, StylizedStrings, Verbosity};
 
-pub_struct! {
-    struct CommandHelpStyle {
-        header: ContentStyle,
-        subheader: ContentStyle,
-        contrast: ContentStyle
+fn print_description(description: StylizedStrings, detailed_description: StylizedStrings, verbosity: &Verbosity) -> std::io::Result<()> {
+    match verbosity {
+        Verbosity::Quite => {
+            stylized_prints(description)?;
+        }
+        _ => {
+            stylized_prints(description)?;
+            empty_line();
+            stylized_prints(detailed_description)?;
+        }
     }
+
+    Ok(())
 }
 
-macro_rules! header {
-    ($header: literal, $style:expr) => {
-        stylized_print(StylizedString($style, String::from($header) + ": "))?;
-    };
-}
-
-fn new_subheader(white_spaces: u8) {
-    print!("\n");
-    for _ in 0..white_spaces {
-        print!(" ")
-    }
-}
-
-fn empty_line() {
-    print!("\n\n");
-}
-
-pub fn command_help(command: CommandData, style: CommandHelpStyle) -> std::io::Result<()> {
-    // Short description with additional details:
-    stylized_prints(command.description)?;
-    empty_line();
-    stylized_prints(command.detailed_description)?;
-    empty_line();
-
-    // Usage:
+fn print_usage(command_name: String, arguments: Vec<Input>, style: &HelpStyle) -> std::io::Result<()> {
     header!("Usage", style.header);
     stylized_prints(vec![
-        StylizedString(style.subheader, format!("gyst {} ", command.name)),
+        StylizedString(style.subheader, format!("gyst {} ", command_name)),
         StylizedString(style.contrast, String::from("[OPTIONS] ")),
     ])?;
 
-    for arg in command.arguments {
+    for arg in arguments {
         match arg {
             Input::Arg { value, .. } => {
                 stylized_print(StylizedString(style.contrast, value + " "))?
@@ -52,17 +37,67 @@ pub fn command_help(command: CommandData, style: CommandHelpStyle) -> std::io::R
             _ => (),
         }
     }
-    empty_line();
 
-    // Examples:
+    Ok(())
+}
+
+fn print_example(examples: Vec<StylizedStrings>, style: &HelpStyle) -> std::io::Result<()> {
     header!("Examples", style.header);
-    for example in command.examples {
+    for example in examples {
         new_subheader(2);
         stylized_prints(example)?;
     }
+
+    Ok(())
+}
+
+fn print_input(inputs: Vec<Input>, style: &HelpStyle) -> std::io::Result<()> {
+    let mut inputs_prints: Vec<StylizedStrings> = vec![];
+
+    for input in inputs {
+        let mut pushed_value: StylizedStrings = vec![];
+        
+        match input {
+            Input::Arg {
+                value,
+                possible_values,
+                ..
+            } => {
+                
+                match possible_values {
+                    Some(values) => {
+                        
+                    }
+                    None => { pushed_value.push(StylizedString(style.subheader, value + " ")) }
+                }
+
+            }
+            Input::Flag {
+                short,
+                long,
+                value,
+                description,
+                default_value,
+                possible_values,
+            } => {}
+        }
+    }
+
+    Ok(())
+}
+
+pub fn command_help(command: CommandData, style: HelpStyle, verbosity: Verbosity) -> std::io::Result<()> {
+    print_description(command.description, command.detailed_description, &verbosity)?;
     empty_line();
 
-    
+    print_usage(command.name, command.arguments, &style)?;
+    empty_line();
+
+    print_example(command.examples, &style)?;
+    empty_line();
+
+    // Arguments:
+    header!("Arguments", style.header);
 
     Ok(())
 }
