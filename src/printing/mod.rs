@@ -17,7 +17,8 @@ pub_struct! {
     struct HelpStyle {
         header: ContentStyle,
         subheader: ContentStyle,
-        contrast: ContentStyle
+        contrast: ContentStyle,
+        default: ContentStyle
     }
 }
 
@@ -57,4 +58,13 @@ fn new_subheader(white_spaces: u8) {
 
 fn empty_line() {
     print!("\n\n");
+}
+
+fn create_possible_values(values: Vec<String>) -> String {
+    let mut possible_values: String = String::from("<");
+    for value in values {
+        possible_values.push_str(&(value.to_uppercase() + "|"));
+    }
+    possible_values.pop();
+    possible_values + ">"
 }

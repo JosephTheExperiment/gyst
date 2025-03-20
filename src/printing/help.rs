@@ -1,13 +1,15 @@
-use crate::printing::{empty_line, new_subheader, stylized_print, stylized_prints, StylizedString};
-use crate::{header, SS};
-use crate::{
-    architecture::{CommandData, Input},
-    pub_struct,
-};
-use crossterm::style::ContentStyle;
-use super::{HelpStyle, StylizedStrings, Verbosity};
+use inquire::length;
 
-fn print_description(description: StylizedStrings, detailed_description: StylizedStrings, verbosity: &Verbosity) -> std::io::Result<()> {
+use super::{create_possible_values, HelpStyle, StylizedStrings, Verbosity};
+use crate::architecture::{CommandData, Input};
+use crate::header;
+use crate::printing::{empty_line, new_subheader, stylized_print, stylized_prints, StylizedString};
+
+fn print_description(
+    description: StylizedStrings,
+    detailed_description: StylizedStrings,
+    verbosity: &Verbosity,
+) -> std::io::Result<()> {
     match verbosity {
         Verbosity::Quite => {
             stylized_prints(description)?;
@@ -22,11 +24,15 @@ fn print_description(description: StylizedStrings, detailed_description: Stylize
     Ok(())
 }
 
-fn print_usage(command_name: String, arguments: Vec<Input>, style: &HelpStyle) -> std::io::Result<()> {
+fn print_usage(
+    command_name: String,
+    arguments: Vec<Input>,
+    style: &HelpStyle,
+) -> std::io::Result<()> {
     header!("Usage", style.header);
     stylized_prints(vec![
         StylizedString(style.subheader, format!("gyst {} ", command_name)),
-        StylizedString(style.contrast, String::from("[OPTIONS] ")),
+        StylizedString(style.contrast, "[OPTIONS] ".to_string()),
     ])?;
 
     for arg in arguments {
@@ -51,43 +57,75 @@ fn print_example(examples: Vec<StylizedStrings>, style: &HelpStyle) -> std::io::
     Ok(())
 }
 
+fn create_half_input_print(input: Input, style: &HelpStyle) -> StylizedStrings {
+    let mut half_input_print: StylizedStrings = vec![];
+
+    match input {
+        Input::Arg {
+            value,
+            possible_values,
+            ..
+        } => match possible_values {
+            Some(values) => half_input_print.push(StylizedString(
+                style.contrast,
+                create_possible_values(values) + " ",
+            )),
+            None => half_input_print.push(StylizedString(style.contrast, value + " ")),
+        },
+        Input::Flag {
+            short,
+            long,
+            value,
+            possible_values,
+            ..
+        } => { 
+            match short {
+                Some(short) => {
+                    half_input_print.push(StylizedString(style.subheader, short));
+                    half_input_print.push(StylizedString(style.default, ", ".to_string()));
+                    half_input_print.push(StylizedString(style.subheader, long + " "));
+                }
+                None => {
+                    half_input_print.push(StylizedString(style.default, "    ".to_string()));
+                    half_input_print.push(StylizedString(style.subheader, long + " "));
+                }
+            }
+            match possible_values {
+                Some(values) => {
+                    
+                }
+                None => {
+                }
+            }
+        }
+    }
+
+    half_input_print
+}
+
 fn print_input(inputs: Vec<Input>, style: &HelpStyle) -> std::io::Result<()> {
     let mut inputs_prints: Vec<StylizedStrings> = vec![];
+    let mut max_length: usize = 0;
 
-    for input in inputs {
-        let mut pushed_value: StylizedStrings = vec![];
+    for input in inputs {   
+        inputs_prints.push(create_half_input_print(input, style));
         
-        match input {
-            Input::Arg {
-                value,
-                possible_values,
-                ..
-            } => {
-                
-                match possible_values {
-                    Some(values) => {
-                        
-                    }
-                    None => { pushed_value.push(StylizedString(style.subheader, value + " ")) }
-                }
 
-            }
-            Input::Flag {
-                short,
-                long,
-                value,
-                description,
-                default_value,
-                possible_values,
-            } => {}
-        }
     }
 
     Ok(())
 }
 
-pub fn command_help(command: CommandData, style: HelpStyle, verbosity: Verbosity) -> std::io::Result<()> {
-    print_description(command.description, command.detailed_description, &verbosity)?;
+pub fn command_help(
+    command: CommandData,
+    style: HelpStyle,
+    verbosity: Verbosity,
+) -> std::io::Result<()> {
+    print_description(
+        command.description,
+        command.detailed_description,
+        &verbosity,
+    )?;
     empty_line();
 
     print_usage(command.name, command.arguments, &style)?;
