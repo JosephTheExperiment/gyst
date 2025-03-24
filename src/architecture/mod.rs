@@ -75,9 +75,10 @@ pub_struct!{
     }
 }
 
+#[derive(Clone)]
 pub enum Input {
     Flag {
-        short: Option<String>,
+        short: Option<char>,
         long: String,
         value: String,
         description: String,

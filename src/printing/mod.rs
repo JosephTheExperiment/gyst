@@ -3,8 +3,38 @@ use std::io;
 use crossterm::{execute, style::{Attribute, ContentStyle, Print, ResetColor, SetAttribute, SetStyle}};
 use crate::pub_struct;
 
+#[derive(Clone)]
 pub struct StylizedString(pub ContentStyle, pub String);
-pub type StylizedStrings = Vec<StylizedString>;
+#[derive(Clone)]
+pub struct StylizedStrings(pub Vec<StylizedString>);
+
+impl StylizedString {
+    fn len(&self) -> usize {
+        let Self(_, string) = self;
+        string.chars().count()
+    }
+}
+
+impl StylizedStrings {
+    fn len(&self) -> usize {
+        let Self(substrings) = self;
+        let mut total_length: usize = 0;
+        for substring in substrings {
+            total_length += substring.len();
+        }
+
+        return total_length;
+    }
+}
+
+impl IntoIterator for StylizedStrings {
+    type Item = StylizedString;
+    type IntoIter = std::vec::IntoIter<Self::Item>;
+
+    fn into_iter(self) -> Self::IntoIter {
+        self.0.into_iter()
+    }
+}
 
 pub enum Verbosity {
     Quite,
