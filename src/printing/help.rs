@@ -1,4 +1,6 @@
-use super::{HelpStyle, StylizedStrings, Verbosity};
+use clap::builder::PossibleValue;
+
+use super::{create_possible_values, HelpStyle, StylizedStrings, Verbosity};
 use crate::architecture::{CommandData, Input};
 use crate::header;
 use crate::printing::{empty_line, new_subheader, stylized_print, stylized_prints, StylizedString};
@@ -49,9 +51,41 @@ impl CommandData {
     }
 }
 
-// fn create_half_input_print(input: Input, style: &HelpStyle) -> StylizedStrings {
+fn create_half_input_print(input: Input, style: &HelpStyle) -> StylizedStrings {
+    let mut input_print: StylizedStrings = StylizedStrings::new();
 
-// }
+    match input {
+        Input::Arg {
+            value,
+            possible_values,
+            ..
+        } => input_print.push(match possible_values {
+            Some(x) => StylizedString(style.contrast, create_possible_values(x)),
+            None => StylizedString(style.contrast, value),
+        }),
+        Input::Flag {
+            short,
+            long,
+            value,
+            possible_values,
+            ..
+        } => {
+            input_print.push(match short {
+                Some(x) => StylizedString(style.subheader, format!("-{x}")),
+                None => StylizedString(style.default, "    ".to_string()),
+            });
+            input_print.push(StylizedString(style.default, " ,".to_string()));
+            input_print.push(StylizedString(style.subheader, long));
+            input_print.push(StylizedString(style.default, " ".to_string()));
+            input_print.push(match possible_values {
+                Some(x) => StylizedString(style.contrast, create_possible_values(x)),
+                None => StylizedString(style.contrast, value),
+            });
+        }
+    }
+
+    return input_print;
+}
 
 // fn print_input(inputs: Vec<Input>, style: &HelpStyle) -> std::io::Result<()> {
 //     let mut inputs_prints: Vec<StylizedStrings> = vec![];

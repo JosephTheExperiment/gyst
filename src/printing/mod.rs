@@ -1,7 +1,10 @@
 mod help;
-use std::io;
-use crossterm::{execute, style::{Attribute, ContentStyle, Print, ResetColor, SetAttribute, SetStyle}};
 use crate::pub_struct;
+use crossterm::{
+    execute,
+    style::{Attribute, ContentStyle, Print, ResetColor, SetAttribute, SetStyle},
+};
+use std::io;
 
 #[derive(Clone)]
 pub struct StylizedString(pub ContentStyle, pub String);
@@ -12,6 +15,10 @@ impl StylizedString {
     fn len(&self) -> usize {
         let Self(_, string) = self;
         string.chars().count()
+    }
+
+    fn new() -> StylizedString {
+        StylizedString(ContentStyle::new(), String::new())
     }
 }
 
@@ -24,6 +31,14 @@ impl StylizedStrings {
         }
 
         return total_length;
+    }
+
+    fn push(&mut self, string: StylizedString) {
+        self.0.push(string);
+    }
+
+    fn new() -> StylizedStrings {
+        StylizedStrings(vec![])
     }
 }
 
@@ -40,7 +55,7 @@ pub enum Verbosity {
     Quite,
     Default,
     Verbose,
-    Debug
+    Debug,
 }
 
 pub_struct! {
