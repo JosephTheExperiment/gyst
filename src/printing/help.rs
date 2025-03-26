@@ -75,7 +75,7 @@ fn create_half_input_print(input: Input, style: &HelpStyle) -> StylizedStrings {
                 None => StylizedString(style.default, "    ".to_string()),
             });
             input_print.push(StylizedString(style.default, " ,".to_string()));
-            input_print.push(StylizedString(style.subheader, long));
+            input_print.push(StylizedString(style.subheader, format!("--{long}")));
             input_print.push(StylizedString(style.default, " ".to_string()));
             input_print.push(match possible_values {
                 Some(x) => StylizedString(style.contrast, create_possible_values(x)),
@@ -87,16 +87,21 @@ fn create_half_input_print(input: Input, style: &HelpStyle) -> StylizedStrings {
     return input_print;
 }
 
-// fn print_input(inputs: Vec<Input>, style: &HelpStyle) -> std::io::Result<()> {
-//     let mut inputs_prints: Vec<StylizedStrings> = vec![];
-//     let mut max_length: usize = 0;
+fn create_inputs_print(inputs: Vec<Input>, style: &HelpStyle) -> Vec<StylizedStrings> {
+    let mut inputs_print: Vec<StylizedStrings> = vec![];
+    let mut max_first_half_length: usize = 0;
 
-//     for input in inputs {
-//         inputs_prints.push(create_half_input_print(input, style));
-//     }
+    for input in inputs {
+        let half_input_print = create_half_input_print(input, style);
+        inputs_print.push(half_input_print.clone());
 
-//     Ok(())
-// }
+        if half_input_print.len() > max_first_half_length {
+            max_first_half_length = half_input_print.len();
+        }
+    }
+
+    return inputs_print;
+}
 
 pub fn command_help(
     command: CommandData,
