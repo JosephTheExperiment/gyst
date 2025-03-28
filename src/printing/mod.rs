@@ -13,8 +13,11 @@ pub struct StylizedStrings(pub Vec<StylizedString>);
 
 impl StylizedString {
     fn len(&self) -> usize {
-        let Self(_, string) = self;
-        string.chars().count()
+        self.1.chars().count()
+    }
+
+    fn push_str(&mut self, string: &str) {
+        self.1.push_str(string);
     }
 
     fn new() -> StylizedString {
@@ -63,7 +66,9 @@ pub_struct! {
         header: ContentStyle,
         subheader: ContentStyle,
         contrast: ContentStyle,
-        default: ContentStyle
+        text: ContentStyle,
+        default: ContentStyle,
+        tab: String
     }
 }
 
@@ -88,21 +93,17 @@ pub fn stylized_prints(strings: StylizedStrings) -> std::io::Result<()> {
 }
 
 #[macro_export]
-macro_rules! header {
-    ($header: literal, $style:expr) => {
+macro_rules! cli_print {
+    (header => $header: literal, $style:expr) => {
         stylized_print(StylizedString($style, String::from($header) + ": "))?;
     };
-}
-
-fn new_subheader(white_spaces: u8) {
-    print!("\n");
-    for _ in 0..white_spaces {
-        print!(" ")
-    }
-}
-
-fn empty_line() {
-    print!("\n\n");
+    (subheader => $style:expr) => {
+        print!("\n");
+        print!("{}", $style.tab);
+    };
+    (empty line) => {
+        print!("\n\n");
+    };
 }
 
 fn create_possible_values(values: Vec<String>) -> String {
