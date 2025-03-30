@@ -1,4 +1,5 @@
-mod help;
+mod cli_help;
+mod command_help;
 use crate::pub_struct;
 use crossterm::{
     execute,
@@ -22,6 +23,19 @@ impl StylizedString {
 
     fn new() -> StylizedString {
         StylizedString(ContentStyle::new(), String::new())
+    }
+
+    fn white_spaces(style: &HelpStyle, length: usize) -> StylizedString {
+        if length == 1 {
+            StylizedString(style.default, " ".to_string())
+        } else {
+            let mut white_spaces: String = String::new();
+            for _ in 0..length {
+                white_spaces.push(' ');
+            }
+
+            StylizedString(style.default, white_spaces)
+        }
     }
 }
 
@@ -104,13 +118,15 @@ macro_rules! cli_print {
     (empty line) => {
         print!("\n\n");
     };
+    (white space => $style:expr) => {
+        stylized_print(StylizedString($style.default, " ".to_string()))?
+    };
 }
 
 fn create_possible_values(values: Vec<String>) -> String {
     let mut possible_values: String = String::from("<");
     for value in values {
-        possible_values.push_str(&(value.to_uppercase() + "|"));
+        possible_values.push_str(&(value.to_uppercase() + " | "));
     }
-    possible_values.pop();
-    possible_values + ">"
+    possible_values.strip_suffix(" | ").unwrap().to_string() + ">"
 }

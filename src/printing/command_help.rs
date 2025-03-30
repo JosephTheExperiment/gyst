@@ -1,5 +1,3 @@
-use clap::builder::PossibleValue;
-
 use super::{create_possible_values, HelpStyle, StylizedStrings, Verbosity};
 use crate::architecture::{CommandData, Input};
 use crate::cli_print;
@@ -24,14 +22,17 @@ impl CommandData {
     fn print_usage(&self, style: &HelpStyle) -> std::io::Result<()> {
         cli_print!(header => "Usage", style.header);
         stylized_prints(StylizedStrings(vec![
-            StylizedString(style.subheader, format!("gyst {} ", self.name)),
-            StylizedString(style.contrast, "[OPTIONS] ".to_string()),
+            StylizedString(style.subheader, format!("gyst {}", self.name)),
+            StylizedString::white_spaces(style, 1),
+            StylizedString(style.contrast, "[OPTIONS]".to_string()),
+            StylizedString::white_spaces(style, 1),
         ]))?;
 
         for arg in self.arguments.clone() {
             match arg {
                 Input::Arg { value, .. } => {
-                    stylized_print(StylizedString(style.contrast, value + " "))?
+                    stylized_print(StylizedString(style.contrast, value))?;
+                    cli_print!(white space => style);
                 }
                 _ => (),
             }
@@ -76,7 +77,7 @@ fn create_half_input_print(input: Input, style: &HelpStyle) -> StylizedStrings {
             });
             input_print.push(StylizedString(style.default, " ,".to_string()));
             input_print.push(StylizedString(style.subheader, format!("--{long}")));
-            input_print.push(StylizedString(style.default, " ".to_string()));
+            input_print.push(StylizedString::white_spaces(style, 1));
             input_print.push(match possible_values {
                 Some(x) => StylizedString(style.contrast, create_possible_values(x)),
                 None => StylizedString(style.contrast, value),
@@ -101,13 +102,8 @@ fn create_inputs_prints(inputs: Vec<Input>, style: &HelpStyle) -> Vec<StylizedSt
     }
 
     for i in 0..inputs_print.len() {
-        let mut white_spaces: String = "".to_string();
-
-        for _ in 0..(max_first_half_length - inputs_print[i].len()) + 1 {
-            white_spaces.push_str(" ");
-        }
-
-        inputs_print[i].push(StylizedString(style.default, white_spaces));
+        let length: usize = (max_first_half_length - inputs_print[i].len()) + 1;
+        inputs_print[i].push(StylizedString::white_spaces(style, length));
 
         match &inputs[i] {
             Input::Arg { description, .. } => {
@@ -120,7 +116,7 @@ fn create_inputs_prints(inputs: Vec<Input>, style: &HelpStyle) -> Vec<StylizedSt
             } => {
                 inputs_print[i].push(StylizedString(style.default, description.to_string()));
                 if let Some(default_value) = default_value {
-                    inputs_print[i].push(StylizedString(style.default, " ".to_string()));
+                    inputs_print[i].push(StylizedString::white_spaces(style, 1));
                     inputs_print[i].push(StylizedString(
                         style.default,
                         format!("(default value: {})", default_value.to_string()),
