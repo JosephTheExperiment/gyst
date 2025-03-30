@@ -1,5 +1,5 @@
 use super::{create_possible_values, HelpStyle, StylizedStrings, Verbosity};
-use crate::architecture::{CommandData, Input};
+use crate::architecture::{CommandData, Header, Input};
 use crate::cli_print;
 use crate::printing::{stylized_print, stylized_prints, StylizedString};
 
@@ -20,7 +20,7 @@ impl CommandData {
     }
 
     fn print_usage(&self, style: &HelpStyle) -> std::io::Result<()> {
-        cli_print!(header => "Usage", style.header);
+        cli_print!(header => "Usage", style);
         stylized_prints(StylizedStrings(vec![
             StylizedString(style.subheader, format!("gyst {}", self.name)),
             StylizedString::white_spaces(style, 1),
@@ -42,10 +42,25 @@ impl CommandData {
     }
 
     fn print_examples(&self, style: &HelpStyle) -> std::io::Result<()> {
-        cli_print!(header => "Examples", style.header);
+        cli_print!(header => "Examples", style);
         for example in self.examples.clone() {
             cli_print!(subheader => style);
             stylized_prints(example)?;
+        }
+
+        Ok(())
+    }
+
+    fn print_header_input(header: Header<Input>, style: &HelpStyle) -> std::io::Result<()> {
+        let inputs_prints: Vec<StylizedStrings> = create_inputs_prints(&header.values, style);
+
+        if let Some(header_string) = header.header {
+            cli_print!(header => header_string, style);
+        }
+
+        for input_print in inputs_prints {
+            cli_print!(subheader => style);
+            stylized_prints(input_print)?;
         }
 
         Ok(())
@@ -88,36 +103,36 @@ fn create_half_input_print(input: Input, style: &HelpStyle) -> StylizedStrings {
     return input_print;
 }
 
-fn create_inputs_prints(inputs: Vec<Input>, style: &HelpStyle) -> Vec<StylizedStrings> {
-    let mut inputs_print: Vec<StylizedStrings> = vec![];
+fn create_inputs_prints(inputs: &Vec<Input>, style: &HelpStyle) -> Vec<StylizedStrings> {
+    let mut inputs_prints: Vec<StylizedStrings> = vec![];
     let mut max_first_half_length: usize = 0;
 
-    for input in &inputs {
+    for input in inputs {
         let half_input_print = create_half_input_print(input.clone(), style);
-        inputs_print.push(half_input_print.clone());
+        inputs_prints.push(half_input_print.clone());
 
         if half_input_print.len() > max_first_half_length {
             max_first_half_length = half_input_print.len();
         }
     }
 
-    for i in 0..inputs_print.len() {
-        let length: usize = (max_first_half_length - inputs_print[i].len()) + 1;
-        inputs_print[i].push(StylizedString::white_spaces(style, length));
+    for i in 0..inputs_prints.len() {
+        let length: usize = (max_first_half_length - inputs_prints[i].len()) + 1;
+        inputs_prints[i].push(StylizedString::white_spaces(style, length));
 
         match &inputs[i] {
             Input::Arg { description, .. } => {
-                inputs_print[i].push(StylizedString(style.default, description.to_string()));
+                inputs_prints[i].push(StylizedString(style.default, description.to_string()));
             }
             Input::Flag {
                 description,
                 default_value,
                 ..
             } => {
-                inputs_print[i].push(StylizedString(style.default, description.to_string()));
+                inputs_prints[i].push(StylizedString(style.default, description.to_string()));
                 if let Some(default_value) = default_value {
-                    inputs_print[i].push(StylizedString::white_spaces(style, 1));
-                    inputs_print[i].push(StylizedString(
+                    inputs_prints[i].push(StylizedString::white_spaces(style, 1));
+                    inputs_prints[i].push(StylizedString(
                         style.default,
                         format!("(default value: {})", default_value.to_string()),
                     ));
@@ -126,5 +141,5 @@ fn create_inputs_prints(inputs: Vec<Input>, style: &HelpStyle) -> Vec<StylizedSt
         }
     }
 
-    return inputs_print;
+    return inputs_prints;
 }

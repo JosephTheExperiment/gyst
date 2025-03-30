@@ -108,8 +108,8 @@ pub fn stylized_prints(strings: StylizedStrings) -> std::io::Result<()> {
 
 #[macro_export]
 macro_rules! cli_print {
-    (header => $header: literal, $style:expr) => {
-        stylized_print(StylizedString($style, String::from($header) + ": "))?;
+    (header => $header:expr, $style:expr) => {
+        stylized_print(StylizedString($style.header, String::from($header) + ": "))?;
     };
     (subheader => $style:expr) => {
         print!("\n");
