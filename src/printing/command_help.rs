@@ -65,6 +65,28 @@ impl CommandData {
 
         Ok(())
     }
+
+    fn print_read_more(&self, style: &HelpStyle) -> std::io::Result<()> {
+        cli_print!(header => "Read more", style);
+        for learning_resource in self.examples.clone() {
+            cli_print!(subheader => style);
+            stylized_prints(learning_resource)?;
+        }
+
+        Ok(())
+    }
+
+    // fn get_command_data(&self) -> CommandData {
+    //     let command_data: CommandData = self.clone();
+
+    //     if let Some(command_variants) = &self.command_variants {
+    //         for command_variant in command_variants {
+                
+    //         }
+    //     } 
+
+    //     return command_data;
+    // }
 }
 
 fn create_half_input_print(input: Input, style: &HelpStyle) -> StylizedStrings {

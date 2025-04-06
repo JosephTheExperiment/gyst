@@ -33,3 +33,11 @@ pub fn build_directory(directory: Directory, path: Option<PathBuf>) -> std::io::
 
     Ok(())
 }
+
+pub fn get_project_root() -> std::io::Result<Option<PathBuf>> {
+    let path = env::current_dir()?;
+
+    
+
+    Ok(None)
+}

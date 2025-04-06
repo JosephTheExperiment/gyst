@@ -16,7 +16,7 @@
 2. Usage: Required arguments and options.
 3. Examples: For different uses, or ranging from simple to complicated.
 4. Arguments: Required arguments.
-5. Options: Categorized according to their alphabetical order.
+5. Options: Categorized according to their function.
 6. Read more: Related topics, commands, and a URL for documentation.
 ## Help Command massage
 1. Name and short description.

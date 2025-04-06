@@ -30,6 +30,7 @@ pub trait Command {
 }
 
 pub_struct!{
+    #[derive(Clone)]
     struct Header<T> {
         header: Option<String>,
         values: Vec<T>
@@ -45,6 +46,7 @@ pub_struct!{
 }
 
 pub_struct!{
+    #[derive(Clone)]
     struct CommandData {
         name: String,
         description: StylizedStrings,
@@ -53,25 +55,32 @@ pub_struct!{
         arguments: Vec<Input>,
         options: Vec<Header<Input>>,
         read_more: Vec<StylizedStrings>,
-        data_options: Option<CommandOptions>
+        command_variants: Option<Vec<CommandVariant>>
     }
 }
 
+pub_struct!(
+    #[derive(Clone)]
+    struct CommandVariant {
+        r#type: CommandVariantTypes,
+        data: CommandVariantData 
+    }
+);
+
+#[derive(Clone)]
+pub enum CommandVariantTypes {
+    Vcpkg,
+    Conan,
+    Hunter
+}     
+
 pub_struct!{
-    struct CommandDataOptions {
+    #[derive(Clone)]
+    struct CommandVariantData {
         examples: Option<Vec<StylizedStrings>>,
-        required: Option<Vec<Input>>,
+        arguments: Option<Vec<Input>>,
         options: Option<Vec<Header<Input>>>,
         read_more: Option<Vec<StylizedStrings>>
-    }
-}
-
-pub_struct!{
-    struct CommandOptions {
-        vcpkg: Option<CommandDataOptions>,
-        conan: Option<CommandDataOptions>,
-        hunter: Option<CommandDataOptions>,
-        github: Option<CommandDataOptions>
     }
 }
 
