@@ -2,7 +2,7 @@
 1. Custom help massage, and macros for commands and help command.
 	1. Help massage generator for commands. 
 	2. Help massage generator for cli.
-	3. Help command (just basic factionally).
+	3. Help command (just basic functionality).
 2. Write [[triplets_base]] for vcpkg.
 3. Editing of the [[Options and commands]] file.
 4. Check on cmake files.
