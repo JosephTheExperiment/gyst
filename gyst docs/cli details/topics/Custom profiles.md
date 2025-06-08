@@ -1,2 +1,0 @@
-# About
-Custom profiles is a feature made to enable the users of gyst to add custom project templates, change files used in said templates, options for projects, and to customize the behavior of gyst entirely, by using your favorite languages c and c++ (while I know you might hate it, but unfortunately you don't have a choice, because I'm the one writing here) so given some header files you can implement some functions to change the behavior of gyst.  

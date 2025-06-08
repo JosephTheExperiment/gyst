@@ -4,7 +4,7 @@
 	2. Help massage generator for cli.
 	3. Help command (just basic functionality).
 2. Write [[triplets_base]] for vcpkg.
-3. Editing of the [[Options and commands]] file.
+3. Editing of the [[Commands and options]] file.
 4. Check on cmake files.
 	1. Change the c and c++ standard.
 	2. Change and check on the needed cache variables.
