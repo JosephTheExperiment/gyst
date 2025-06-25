@@ -1,3 +1,2 @@
-/target
-.obsidian
-.vscode
+*/target
+*/.obsidian
