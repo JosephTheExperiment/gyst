@@ -1,7 +1,4 @@
-mod_all!(pub help);
-use crate::{cli, mod_all};
+use crate::cli;
 use clap::Parser;
 
-cli!(
-    Cli {}
-);
+cli!(Cli {});

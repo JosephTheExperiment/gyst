@@ -1,7 +1,7 @@
 mod macros;
-mod_all!(utils, cmake);
-use crate::{mod_all, pub_struct, Cli};
+mod utils;
 use crate::printing::StylizedStrings;
+use crate::{pub_struct, Cli};
 
 pub enum CommandErrors {
     NameCorrection(ErrorMassage),
@@ -12,7 +12,7 @@ pub enum CommandErrors {
     None,
 }
 
-pub_struct!{
+pub_struct! {
     struct ErrorMassage {
         error: String,
         massage: String,
@@ -29,7 +29,7 @@ pub trait Command {
     fn compilation(&self, cli: Cli, errors: CommandErrors) -> Result<(), CommandErrors>;
 }
 
-pub_struct!{
+pub_struct! {
     #[derive(Clone)]
     struct Header<T> {
         header: Option<String>,
@@ -37,7 +37,7 @@ pub_struct!{
     }
 }
 
-pub_struct!{
+pub_struct! {
     struct CliData {
         description: StylizedStrings,
         command_data: Vec<CommandData>,
@@ -45,7 +45,7 @@ pub_struct!{
     }
 }
 
-pub_struct!{
+pub_struct! {
     #[derive(Clone)]
     struct CommandData {
         name: String,
@@ -59,22 +59,22 @@ pub_struct!{
     }
 }
 
-pub_struct!(
+pub_struct! {
     #[derive(Clone)]
     struct CommandVariant {
-        r#type: CommandVariantTypes,
-        data: CommandVariantData 
+        ty: CommandVariantTypes,
+        data: CommandVariantData
     }
-);
+}
 
 #[derive(Clone)]
 pub enum CommandVariantTypes {
     Vcpkg,
     Conan,
-    Hunter
-}     
+    Hunter,
+}
 
-pub_struct!{
+pub_struct! {
     #[derive(Clone)]
     struct CommandVariantData {
         examples: Option<Vec<StylizedStrings>>,
@@ -92,11 +92,11 @@ pub enum Input {
         value: String,
         description: String,
         default_value: Option<String>,
-        possible_values: Option<Vec<String>>
+        possible_values: Option<Vec<String>>,
     },
     Arg {
         value: String,
         description: String,
-        possible_values: Option<Vec<String>>
+        possible_values: Option<Vec<String>>,
     },
 }
