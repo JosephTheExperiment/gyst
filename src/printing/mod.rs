@@ -1,6 +1,8 @@
+mod base;
 mod cli_help;
 mod command_help;
-use crate::pub_struct;
+mod macros;
+use super::pub_struct;
 use crossterm::{
     execute,
     style::{Attribute, ContentStyle, Print, ResetColor, SetAttribute, SetStyle},

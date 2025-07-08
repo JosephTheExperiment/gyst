@@ -1,6 +1,6 @@
 use super::{create_possible_values, HelpStyle, StylizedStrings, Verbosity};
-use crate::architecture::{CommandData, Header, Input};
 use crate::cli_print;
+use crate::commands::base::{CommandData, Header, Input};
 use crate::printing::{stylized_print, stylized_prints, StylizedString};
 
 impl CommandData {
@@ -29,13 +29,10 @@ impl CommandData {
         ]))?;
 
         for arg in self.arguments.clone() {
-            match arg {
-                Input::Arg { value, .. } => {
-                    stylized_print(StylizedString(style.contrast, value))?;
-                    cli_print!(white space => style);
-                }
-                _ => (),
-            }
+            if let Input::Arg { value, .. } = arg {
+                stylized_print(StylizedString(style.contrast, value))?;
+                cli_print!(white space => style);
+            };
         }
 
         Ok(())
@@ -81,9 +78,9 @@ impl CommandData {
 
     //     if let Some(command_variants) = &self.command_variants {
     //         for command_variant in command_variants {
-                
+
     //         }
-    //     } 
+    //     }
 
     //     return command_data;
     // }
@@ -120,9 +117,9 @@ fn create_half_input_print(input: Input, style: &HelpStyle) -> StylizedStrings {
                 None => StylizedString(style.contrast, value),
             });
         }
-    }
+    };
 
-    return input_print;
+    input_print
 }
 
 fn create_inputs_prints(inputs: &Vec<Input>, style: &HelpStyle) -> Vec<StylizedStrings> {
@@ -156,12 +153,12 @@ fn create_inputs_prints(inputs: &Vec<Input>, style: &HelpStyle) -> Vec<StylizedS
                     inputs_prints[i].push(StylizedString::white_spaces(style, 1));
                     inputs_prints[i].push(StylizedString(
                         style.default,
-                        format!("(default value: {})", default_value.to_string()),
+                        format!("(default value: {})", default_value),
                     ));
                 }
             }
         }
     }
 
-    return inputs_prints;
+    inputs_prints
 }

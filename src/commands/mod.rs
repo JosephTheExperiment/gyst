@@ -1,4 +1,2 @@
-use crate::cli;
-use clap::Parser;
-
-cli!(Cli {});
+pub mod base;
+pub mod macros;
