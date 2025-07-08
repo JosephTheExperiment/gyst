@@ -49,7 +49,7 @@ impl StylizedStrings {
             total_length += substring.len();
         }
 
-        return total_length;
+        total_length
     }
 
     fn push(&mut self, string: StylizedString) {

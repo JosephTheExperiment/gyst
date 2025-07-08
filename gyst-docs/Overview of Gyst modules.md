@@ -1,5 +1,5 @@
 # Overview
-For a command to be executed five modules must play a role:
+[#](https://github.com/helix-editor/helix/issues/238)For a command to be executed five modules must play a role:
 1. The parser => For getting and validating inputs.  
 2. Commands => To execute the given command with the (partially) validated inputs.
 3. Printing => Isn't it clear the printing module does printing.
