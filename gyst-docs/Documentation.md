@@ -6,3 +6,6 @@ Here i will try to present all of the documentation available, or related to the
 # Documentation guidelines
 1. Documentation must be a reflection of the code that it's documenting.
 2. 
+# Some notes
+1. Vcpkg documentation, and flags will be lift in the docs until the first release is out. 
+2. Gyst cli will focus on Linux then Windows then Macos if the cli is successful.
