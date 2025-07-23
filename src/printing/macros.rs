@@ -1,7 +1,7 @@
 // Stylized string
 #[macro_export]
 macro_rules! SS {
-    ($(fg:$fg:ident,)? $(bg:$bg:ident,)? $(ul:$ul:ident,)? $(attr:$($attr:ident),*)? => $str:expr) => {
+    ($(fg:$fg:ident;)? $(bg:$bg:ident;)? $(ul:$ul:ident;)? $(attr:$($attr:ident),*)? => $str:expr) => {
         {
             let mut content_style = ContentStyle::new();
             $(content_style.foreground_color = Some(Color::$fg);)?
@@ -12,9 +12,9 @@ macro_rules! SS {
         }
     };
 
-    ($fg:ident => $str:expr) => { SS!(fg:$fg, => $str) };
-    ($fg:ident, $bg:ident => $str:expr) => { SS!(fg:$fg, bg:$bg, => $str) };
+    ($fg:ident => $str:expr) => { SS!(fg:$fg; => $str) };
+    ($fg:ident, $bg:ident => $str:expr) => { SS!(fg:$fg; bg:$bg; => $str) };
     ($fg:ident, $bg:ident, $ul:ident, $($attr:ident),* => $str:expr) => {
-        SS!(fg:$fg, bg:$bg, ul:$ul, attr:$($attr),* => $str)
+        SS!(fg:$fg; bg:$bg; ul:$ul; attr:$($attr),* => $str)
     };
 }
