@@ -5,6 +5,17 @@ use crossterm::{
 };
 use std::io;
 
+pub enum WritingElement {
+    Tap(String), // A single tap made of spaces
+    Spaces(usize),
+    MinTap(String), // Only used inside a lines
+    Default(String),
+    Text(StylizedString),
+    Paragraph(StylizedStrings),
+    Lines(Vec<Vec<WritingElement>>),
+    Header(Vec<WritingElement>),
+}
+
 pub enum Verbosity {
     Quite,
     Default,
@@ -17,8 +28,9 @@ pub_struct! {
         header: ContentStyle,
         subheader: ContentStyle,
         contrast: ContentStyle,
+        default: ContentStyle,
         text: ContentStyle,
-        tab: String
+        tab: String // A single tap made of spaces
     }
 }
 
