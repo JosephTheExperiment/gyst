@@ -63,7 +63,7 @@ impl StylizedString {
         }
     }
 
-    fn print(&mut self) -> std::io::Result<()> {
+    fn print(&mut self) -> Result<(), io::Error> {
         execute!(
             io::stdout(),
             SetStyle(self.style),
@@ -105,7 +105,7 @@ impl StylizedStrings {
         }
     }
 
-    fn stylized_prints(&mut self) -> std::io::Result<()> {
+    fn stylized_prints(&mut self) -> Result<(), io::Error> {
         for mut substring in self.clone() {
             substring.print();
         }
