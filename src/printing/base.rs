@@ -3,17 +3,29 @@ use crossterm::{
     execute,
     style::{Attribute, ContentStyle, Print, ResetColor, SetAttribute, SetStyle},
 };
-use std::io;
+use std::{io, sync::Arc};
+
+type TabSize = u8;
+
+#[derive(Clone)]
+pub struct ElementList(pub Arc<[WritingElement]>);
+
+impl<'a> IntoIterator for &'a ElementList {
+    type Item = &'a WritingElement;
+    type IntoIter = std::slice::Iter<'a, WritingElement>;
+
+    fn into_iter(self) -> Self::IntoIter {
+        self.0.iter()
+    }
+}
 
 pub enum WritingElement {
-    Tap(String), // A single tap made of spaces
+    Tab(TabSize),
     Spaces(usize),
-    MinTap(String), // Only used inside a lines
-    Default(String),
     Text(StylizedString),
     Paragraph(StylizedStrings),
-    Lines(Vec<Vec<WritingElement>>),
-    Header(Vec<WritingElement>),
+    Lines(Arc<[ElementList]>),
+    Header(ElementList),
 }
 
 pub enum Verbosity {
@@ -30,7 +42,7 @@ pub_struct! {
         contrast: ContentStyle,
         default: ContentStyle,
         text: ContentStyle,
-        tab: String // A single tap made of spaces
+        tab: TabSize
     }
 }
 
@@ -42,28 +54,23 @@ pub_struct! {
     }
 }
 
-pub_struct! {
-    #[derive(Clone)]
-    struct StylizedStrings{ substrings: Vec<StylizedString> }
-}
-
 impl StylizedString {
-    fn len(&self) -> usize {
+    pub fn len(&self) -> usize {
         self.string.chars().count()
     }
 
-    fn push_str(&mut self, string: &str) {
+    pub fn push_str(&mut self, string: &str) {
         self.string.push_str(string);
     }
 
-    fn new() -> StylizedString {
+    pub fn new() -> StylizedString {
         StylizedString {
             style: ContentStyle::new(),
             string: String::new(),
         }
     }
 
-    fn print(&mut self) -> Result<(), io::Error> {
+    pub fn print(&self) -> Result<(), io::Error> {
         execute!(
             io::stdout(),
             SetStyle(self.style),
@@ -76,37 +83,47 @@ impl StylizedString {
     }
 }
 
+#[derive(Clone)]
+pub struct StylizedStrings(pub Vec<StylizedString>);
+
 impl IntoIterator for StylizedStrings {
     type Item = StylizedString;
-    type IntoIter = std::vec::IntoIter<Self::Item>;
+    type IntoIter = std::vec::IntoIter<StylizedString>;
 
     fn into_iter(self) -> Self::IntoIter {
-        self.substrings.into_iter()
+        self.0.into_iter()
+    }
+}
+
+impl<'a> IntoIterator for &'a StylizedStrings {
+    type Item = &'a StylizedString;
+    type IntoIter = std::slice::Iter<'a, StylizedString>;
+
+    fn into_iter(self) -> Self::IntoIter {
+        self.0.iter()
     }
 }
 
 impl StylizedStrings {
-    fn len(&mut self) -> usize {
+    pub fn len(&self) -> usize {
         let mut length: usize = 0;
-        for substring in self.clone() {
+        for substring in self {
             length += substring.len();
         }
 
         length
     }
 
-    fn push(&mut self, string: StylizedString) {
-        self.substrings.push(string);
+    pub fn push(&mut self, string: StylizedString) {
+        self.0.push(string);
     }
 
-    fn new() -> StylizedStrings {
-        StylizedStrings {
-            substrings: vec![StylizedString::new()],
-        }
+    pub fn new() -> StylizedStrings {
+        StylizedStrings(vec![StylizedString::new()])
     }
 
-    fn stylized_prints(&mut self) -> Result<(), io::Error> {
-        for mut substring in self.clone() {
+    pub fn print(&self) -> Result<(), io::Error> {
+        for substring in self {
             substring.print();
         }
 
