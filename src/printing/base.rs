@@ -5,24 +5,37 @@ use crossterm::{
 };
 use std::io;
 
-#[derive(Clone)]
-pub struct WritingElements(pub Vec<WritingElement>);
+type TabSize = u8;
+pub type WritingElements = Collection<WritingElement>;
+pub type StylizedStrings = Collection<StylizedString>;
 
-impl IntoIterator for WritingElements {
-    type Item = WritingElement;
-    type IntoIter = std::vec::IntoIter<WritingElement>;
+#[derive(Clone)]
+pub struct Collection<T>(pub Vec<T>);
+
+impl<T> IntoIterator for Collection<T> {
+    type Item = T;
+    type IntoIter = std::vec::IntoIter<T>;
 
     fn into_iter(self) -> Self::IntoIter {
         self.0.into_iter()
     }
 }
 
-impl<'a> IntoIterator for &'a WritingElements {
-    type Item = &'a WritingElement;
-    type IntoIter = std::slice::Iter<'a, WritingElement>;
+impl<'a, T> IntoIterator for &'a Collection<T> {
+    type Item = &'a T;
+    type IntoIter = std::slice::Iter<'a, T>;
 
     fn into_iter(self) -> Self::IntoIter {
         self.0.iter()
+    }
+}
+
+impl<'a, T> IntoIterator for &'a mut Collection<T> {
+    type Item = &'a mut T;
+    type IntoIter = std::slice::IterMut<'a, T>;
+
+    fn into_iter(self) -> Self::IntoIter {
+        self.0.iter_mut()
     }
 }
 
@@ -93,27 +106,6 @@ impl StylizedString {
     }
 }
 
-#[derive(Clone)]
-pub struct StylizedStrings(pub Vec<StylizedString>);
-
-impl IntoIterator for StylizedStrings {
-    type Item = StylizedString;
-    type IntoIter = std::vec::IntoIter<StylizedString>;
-
-    fn into_iter(self) -> Self::IntoIter {
-        self.0.into_iter()
-    }
-}
-
-impl<'a> IntoIterator for &'a StylizedStrings {
-    type Item = &'a StylizedString;
-    type IntoIter = std::slice::Iter<'a, StylizedString>;
-
-    fn into_iter(self) -> Self::IntoIter {
-        self.0.iter()
-    }
-}
-
 impl StylizedStrings {
     pub fn len(&self) -> usize {
         let mut length: usize = 0;
@@ -129,7 +121,7 @@ impl StylizedStrings {
     }
 
     pub fn new() -> StylizedStrings {
-        StylizedStrings(vec![StylizedString::new()])
+        Collection(vec![StylizedString::new()])
     }
 
     pub fn print(&self) -> Result<(), io::Error> {
