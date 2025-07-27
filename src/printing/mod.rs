@@ -1,36 +1,46 @@
 mod base;
 mod macros;
-use base::{ElementList, StylizedString, WritingElement};
+use base::{StylizedString, WritingElement, WritingElements};
 use std::io;
 
-fn writing_device(writing_elemetnts: ElementList) -> Result<(), io::Error> {
-    for element in &writing_elemetnts {
-        match element {
-            WritingElement::NewLine => print!("\n"),
-            WritingElement::Tab(tab_size) => {
-                let mut tab: String = String::new();
-                for _ in 0..(*tab_size as i8) {
-                    tab.push(' ');
+impl WritingElements {
+    fn print(&self) -> Result<(), io::Error> {
+        for element in self {
+            match element {
+                WritingElement::NewLine => print!("\n"),
+                WritingElement::Spaces(spaces_number) => {
+                    let mut spaces: String = String::new();
+                    for _ in 0..(*spaces_number as i32) {
+                        spaces.push(' ');
+                    }
+                    print!("{}", spaces);
                 }
-                print!("{}", tab);
-            }
-            WritingElement::Spaces(spaces_number) => {
-                let mut spaces: String = String::new();
-                for _ in 0..(*spaces_number as i32) {
-                    spaces.push(' ');
+                WritingElement::Text(string) => string.print()?,
+                WritingElement::Paragraph(strings) => strings.print()?,
+                WritingElement::Header { header, elements } => {
+                    let mut header: StylizedString = header.clone();
+                    header.push_str(":\n");
+                    header.print()?;
+                    Self::print(elements)?;
                 }
-                print!("{}", spaces);
-            }
-            WritingElement::Text(string) => string.print()?,
-            WritingElement::Paragraph(strings) => strings.print()?,
-            WritingElement::Header { header, elements } => {
-                let mut header: StylizedString = header.clone();
-                header.push_str(":\n");
-                header.print()?;
-                writing_device(elements.clone())?;
             }
         }
+
+        Ok(())
     }
 
-    Ok(())
+    fn len(&self) -> usize {
+        let mut length: usize = 0;
+        for element in self {
+            length += match element {
+                WritingElement::NewLine => break,
+                WritingElement::Spaces(spaces_number) => *spaces_number,
+                WritingElement::Text(string) => string.len(),
+                WritingElement::Paragraph(strings) => strings.len(),
+                WritingElement::Header { .. } => break,
+            }
+        }
+
+        length
+    }
 }

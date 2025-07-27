@@ -3,14 +3,21 @@ use crossterm::{
     execute,
     style::{Attribute, ContentStyle, Print, ResetColor, SetAttribute, SetStyle},
 };
-use std::{io, sync::Arc};
-
-type TabSize = u8;
+use std::io;
 
 #[derive(Clone)]
-pub struct ElementList(pub Arc<[WritingElement]>);
+pub struct WritingElements(pub Vec<WritingElement>);
 
-impl<'a> IntoIterator for &'a ElementList {
+impl IntoIterator for WritingElements {
+    type Item = WritingElement;
+    type IntoIter = std::vec::IntoIter<WritingElement>;
+
+    fn into_iter(self) -> Self::IntoIter {
+        self.0.into_iter()
+    }
+}
+
+impl<'a> IntoIterator for &'a WritingElements {
     type Item = &'a WritingElement;
     type IntoIter = std::slice::Iter<'a, WritingElement>;
 
@@ -19,15 +26,15 @@ impl<'a> IntoIterator for &'a ElementList {
     }
 }
 
+#[derive(Clone)]
 pub enum WritingElement {
     NewLine,
-    Tab(TabSize),
     Spaces(usize),
     Text(StylizedString),
     Paragraph(StylizedStrings),
     Header {
         header: StylizedString,
-        elements: ElementList,
+        elements: WritingElements,
     },
 }
 
