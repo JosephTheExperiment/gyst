@@ -20,12 +20,15 @@ impl<'a> IntoIterator for &'a ElementList {
 }
 
 pub enum WritingElement {
+    NewLine,
     Tab(TabSize),
     Spaces(usize),
     Text(StylizedString),
     Paragraph(StylizedStrings),
-    Lines(Arc<[ElementList]>),
-    Header(ElementList),
+    Header {
+        header: StylizedString,
+        elements: ElementList,
+    },
 }
 
 pub enum Verbosity {
