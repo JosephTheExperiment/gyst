@@ -1,5 +1,6 @@
 mod base;
 mod macros;
+mod help;
 use base::{StylizedString, WritingElement, WritingElements};
 use std::io;
 

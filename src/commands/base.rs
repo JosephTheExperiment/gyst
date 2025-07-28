@@ -1,4 +1,4 @@
-use crate::printing::StylizedStrings;
+use crate::printing::base::StylizedStrings;
 use crate::pub_struct;
 
 pub enum CommandErrors {
