@@ -9,6 +9,10 @@ type TabSize = u8;
 pub type WritingElements = Collection<WritingElement>;
 pub type StylizedStrings = Collection<StylizedString>;
 
+pub trait Printable {
+    fn print(&self) -> Result<(), io::Error>;
+}
+
 #[derive(Clone)]
 pub struct Collection<T>(pub Vec<T>);
 
@@ -77,23 +81,8 @@ pub_struct! {
     }
 }
 
-impl StylizedString {
-    pub fn len(&self) -> usize {
-        self.string.chars().count()
-    }
-
-    pub fn push_str(&mut self, string: &str) {
-        self.string.push_str(string);
-    }
-
-    pub fn new() -> StylizedString {
-        StylizedString {
-            style: ContentStyle::new(),
-            string: String::new(),
-        }
-    }
-
-    pub fn print(&self) -> Result<(), io::Error> {
+impl Printable for StylizedString {
+    fn print(&self) -> Result<(), io::Error> {
         execute!(
             io::stdout(),
             SetStyle(self.style),
@@ -103,6 +92,49 @@ impl StylizedString {
         )?;
 
         Ok(())
+    }
+}
+
+impl Default for StylizedString {
+    fn default() -> Self {
+        StylizedString::new()
+    }
+}
+
+impl StylizedString {
+    pub fn len(&self) -> usize {
+        self.string.chars().count()
+    }
+
+    pub fn is_empty(&self) -> bool {
+        self.len() == 0
+    }
+
+    pub fn push_str(&mut self, string: &str) {
+        self.string.push_str(string);
+    }
+
+    pub fn new() -> Self {
+        StylizedString {
+            style: ContentStyle::new(),
+            string: String::new(),
+        }
+    }
+}
+
+impl Printable for StylizedStrings {
+    fn print(&self) -> Result<(), io::Error> {
+        for substring in self {
+            substring.print()?;
+        }
+
+        Ok(())
+    }
+}
+
+impl Default for StylizedStrings {
+    fn default() -> Self {
+        StylizedStrings::new()
     }
 }
 
@@ -116,19 +148,15 @@ impl StylizedStrings {
         length
     }
 
+    pub fn is_empty(&self) -> bool {
+        self.len() == 0
+    }
+
     pub fn push(&mut self, string: StylizedString) {
         self.0.push(string);
     }
 
-    pub fn new() -> StylizedStrings {
-        Collection(vec![StylizedString::new()])
-    }
-
-    pub fn print(&self) -> Result<(), io::Error> {
-        for substring in self {
-            substring.print();
-        }
-
-        Ok(())
+    pub fn new() -> Self {
+        Collection(vec![])
     }
 }

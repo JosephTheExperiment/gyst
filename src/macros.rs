@@ -18,10 +18,3 @@ macro_rules! pub_struct {
         }
     }
 }
-
-#[macro_export]
-macro_rules! arc {
-    [$($values:expr),*] => {
-       Arc::new([$($values),*])
-    };
-}

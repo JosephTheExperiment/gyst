@@ -1,14 +1,14 @@
-mod base;
-mod macros;
+pub mod base;
 mod help;
-use base::{StylizedString, WritingElement, WritingElements};
+mod macros;
+use base::{Printable, StylizedString, WritingElement, WritingElements};
 use std::io;
 
-impl WritingElements {
+impl Printable for WritingElements {
     fn print(&self) -> Result<(), io::Error> {
         for element in self {
             match element {
-                WritingElement::NewLine => print!("\n"),
+                WritingElement::NewLine => println!(),
                 WritingElement::Spaces(spaces_number) => {
                     let mut spaces: String = String::new();
                     for _ in 0..(*spaces_number as i32) {
@@ -29,7 +29,9 @@ impl WritingElements {
 
         Ok(())
     }
+}
 
+impl WritingElements {
     fn len(&self) -> usize {
         let mut length: usize = 0;
         for element in self {
