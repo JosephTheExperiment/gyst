@@ -1,6 +1,6 @@
 # Overview
 For a command to be executed five modules must play a role:
-1. The parser => For getting and validating inputs.  
+1. The parser => For getting and processing the inputs automatically.
 2. Commands => To execute the given command with the (partially) validated inputs.
 3. Printing => If it isn't clear the printing module does printing.
 4. System interactions => Any interactions between any of the modules and the system of the user should be done through here. 
@@ -9,8 +9,11 @@ For a command to be executed five modules must play a role:
 # The parser
 Inputs will be declared; parsed, validated, and fixed if needed.
 So after the main parser starts the first stage of input command parsing by identifying the command used the first stage completes with: 
-## Command name correction ([[The parser]]) 
-## Required input prompting ([[The parser]])
+## Command name correction 
+1. The cli should make sure that the names of each command is written in the right way without fixing it automatically.
+2. Point 1 can be achieved by checking the wrong command name against a list of commands names searching for the similar name, then prompt the user with the right name, and if that was the right command they had in mind. 
+## Required input prompting
+If a required input was missing, prompt the user with it's name, type, and description, then ask for the missing input.
 ## Validating user input
 The user may confuse the type of the input, so a simple checking, and prompting the user if the input is wrong will solve the issue if present.  
 ## Validating project state
